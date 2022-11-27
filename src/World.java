@@ -187,13 +187,13 @@ public class World
               }
               else if(action.equals("MINE")) {
                 if (dir == 0 && i != gridWidth - 1 && (sprites[i + 1][j] instanceof Stone || sprites[i + 1][j] instanceof Diamond || sprites[i + 1][j] instanceof Bomb))
-                  actions[i][j] = action;
-                else if (dir == 1 && j != 0)
-                  actions[i][j] = action;
-                else if (dir == 2 && i != 0)
-                  actions[i][j] = action;
-                else if (dir == 3 && j != gridHeight-1)
-                  actions[i][j] = action;
+                  actions[i][j] = "r_MINE";
+                else if (dir == 1 && j != 0 && (sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb))
+                  actions[i][j] = "u_MINE";
+                else if (dir == 2 && i != 0 && (sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb))
+                  actions[i][j] = "l_MINE";
+                else if (dir == 3 && j != gridHeight-1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb))
+                  actions[i][j] = "d_MINE";
               }
               else {
                 actions[i][j] = action;
@@ -229,6 +229,10 @@ public class World
               }
               case "TURN_LEFT" -> ((Miner) sprites[i][j]).setDir((((Miner) sprites[i][j]).getDir() + 1) % 4);
               case "TURN_RIGHT" -> ((Miner) sprites[i][j]).setDir((((Miner) sprites[i][j]).getDir() - 1) % 4);
+              case "r_MINE" -> {if(sprites[i + 1][j].mine()) sprites[i + 1][j] = null;}
+              case "u_MINE" -> {if(sprites[i][j - 1].mine()) sprites[i][j - 1] = null;}
+              case "l_MINE" -> {if(sprites[i - 1][j].mine()) sprites[i - 1][j] = null;}
+              case "d_MINE" -> {if(sprites[i][j + 1].mine()) sprites[i][j + 1] = null;}
             }
           }
           if (sprite instanceof Miner){

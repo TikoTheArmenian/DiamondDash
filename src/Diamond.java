@@ -4,15 +4,9 @@ public class Diamond extends Sprite {
         return health;
     }
 
-    public void mine() {
-        health-=1;
-        switch (health) {
-            case 4: setImage("images/stone1.png");
-                break;
-            case 3: setImage("images/stone2.png");
-                break;
-            case 2: setImage("images/stone3.png");
-        }
+    public boolean mine() {
+
+        return health == 0;
     }
 
     private int health;

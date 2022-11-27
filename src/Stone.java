@@ -4,7 +4,7 @@ public class Stone extends Sprite {
         return health;
     }
 
-    public void mine() {
+    public boolean mine() {
         health-=1;
         switch (health) {
             case 4: setImage("images/stone1.png");
@@ -13,6 +13,7 @@ public class Stone extends Sprite {
                 break;
             case 2: setImage("images/stone3.png");
         }
+        return health == 0;
     }
 
     private int health;
