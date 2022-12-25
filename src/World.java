@@ -1,7 +1,10 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class World
 {
@@ -15,12 +18,15 @@ public class World
 
 
   private Sprite[][] sprites;
+  private HashMap<String, Integer> scores;
 
   private ArrayList<String> robotNames;
   private int width;
   private int height;
   private int mouseX;
   private int mouseY;
+
+  private double pan;
 
 
   private int gridWidth;
@@ -56,6 +62,7 @@ public class World
   public World(int w, int h, ArrayList<Bot> bots)
   {
     sprites = new Sprite[w][h];
+    scores =  new HashMap<>();
     gridWidth = w; //15
     gridHeight = h; //8
 
@@ -63,6 +70,8 @@ public class World
 
     width = 1200;
     height = 800;
+
+    pan = 0;
 
     robotNames = new ArrayList<String>();
     robotNames.add("images/bot_yellow.png");
@@ -80,29 +89,74 @@ public class World
     turn  = 0;
     turnsPlayed = 0;
 
+
     xScaler = ((double)width)/(gridWidth);
-    yScaler = ((double)height)/(gridHeight+2);
+    yScaler = ((double)height)/(gridHeight+gridHeight/4);
 
 
-    if(bots.size()>gridHeight*gridWidth/5) throw new RuntimeException("Too many bots for given map size");
+    if(bots.size()>gridHeight*(((gridHeight/8)*15)/5)) throw new RuntimeException("Too many bots for given map size");
 
     int iterator = 1;
-    for(int i = 0; i<gridWidth/5; i++) {
+    for(int i = 0; i<((gridHeight/8)*15)/5; i++) {
       for (int j = 0; j < gridHeight; j++) {
         if (bots.isEmpty()) break;
-        if (bots.size() / ((double) gridWidth/5 * gridHeight - iterator) > Math.random()) {
+        if (bots.size() / ((double) (((gridHeight/8)*15)/5) * gridHeight - iterator) > Math.random()) {
+          String imageName = getNextName();
+          String intToAdd = "";
+          String colorToBeInserted;
+          if(imageName.contains("red"))
+            colorToBeInserted = "r";
+          else if(imageName.contains("blue"))
+            colorToBeInserted = "b";
+          else if(imageName.contains("green"))
+            colorToBeInserted = "g";
+          else if(imageName.contains("purple"))
+            colorToBeInserted = "p";
+          else if(imageName.contains("pink"))
+            colorToBeInserted = "i";
+          else if(imageName.contains("black"))
+            colorToBeInserted = "l";
+          else if(imageName.contains("white"))
+            colorToBeInserted = "w";
+          else if(imageName.contains("orange"))
+            colorToBeInserted = "o";
+          else
+            colorToBeInserted = "y";
 
           sprites[i][j] = new Miner(i*((double)width/gridWidth), j*((double)height/(h+2)),
-                  width / w, height / (h+2), getNextName(), bots.get(0), i, j);
+                  width / w, height / (h+2), imageName, bots.get(0), i, j, "mame");
+
+          while(scores.containsKey(colorToBeInserted+bots.get(0).getName() + intToAdd))
+          {
+
+            if(intToAdd.equals(""))
+              intToAdd = "0";
+            else
+              intToAdd = ""+(Integer.parseInt(intToAdd)+1);
+          }
+
+          StringBuilder scoreKey = new StringBuilder(bots.get(0).getName() + intToAdd);
+          scoreKey.insert(0, colorToBeInserted);
+
+          ((Miner)sprites[i][j]).setName(scoreKey.toString());
+            scores.put(scoreKey.toString(),0);
+
           bots.remove(0);
         }
         iterator++;
       }
     }
-    for(int i = gridWidth/5; i<gridWidth; i++)
+
+    for(int i = (((gridHeight/8)*15)/5); i<gridWidth; i++)
       for (int j = 0; j < gridHeight; j++) {
         if(Math.random()<rockSpawnRate)
           sprites[i][j] = new Stone(i*((double)width/gridWidth), j*((double)height/(h+2)),
+                  width / w, height / (h+2));
+      }
+    for(int i = (((gridHeight/8)*15)/5); i<gridWidth; i++)
+      for (int j = 0; j < gridHeight; j++) {
+        if(Math.random()<diamondSpawnRate)
+          sprites[i][j] = new Diamond(i*((double)width/gridWidth), j*((double)height/(h+2)),
                   width / w, height / (h+2));
       }
 
@@ -229,10 +283,22 @@ public class World
               }
               case "TURN_LEFT" -> ((Miner) sprites[i][j]).setDir((((Miner) sprites[i][j]).getDir() + 1) % 4);
               case "TURN_RIGHT" -> ((Miner) sprites[i][j]).setDir((((Miner) sprites[i][j]).getDir() - 1) % 4);
-              case "r_MINE" -> {if(sprites[i + 1][j].mine()) sprites[i + 1][j] = null;}
-              case "u_MINE" -> {if(sprites[i][j - 1].mine()) sprites[i][j - 1] = null;}
-              case "l_MINE" -> {if(sprites[i - 1][j].mine()) sprites[i - 1][j] = null;}
-              case "d_MINE" -> {if(sprites[i][j + 1].mine()) sprites[i][j + 1] = null;}
+              case "r_MINE" -> {
+                int mine = sprites[i + 1][j].mine();
+                if(mine!=0) sprites[i + 1][j] = null;
+                if(mine==1) scores.put(((Miner) sprites[i][j]).getName(),scores.get(((Miner) sprites[i][j]).getName()) + 1);}
+              case "u_MINE" -> {
+                int mine = sprites[i][j - 1].mine();
+                if(mine!=0) sprites[i + 1][j] = null;
+                if(mine==1) scores.put(((Miner) sprites[i][j]).getName(),scores.get(((Miner) sprites[i][j]).getName() + 1));}
+              case "l_MINE" -> {
+                int mine = sprites[i - 1][j].mine();
+                if(mine!=0) sprites[i - 1][j] = null;
+                if(mine==1) scores.put(((Miner) sprites[i][j]).getName(),scores.get(((Miner) sprites[i][j]).getName() + 1));}
+              case "d_MINE" -> {
+                int mine = sprites[i][j + 1].mine();
+                if(mine!=0) sprites[i][j + 1] = null;
+                if(mine==1) scores.put(((Miner) sprites[i][j]).getName(),scores.get(((Miner) sprites[i][j]).getName() + 1));}
             }
           }
           if (sprite instanceof Miner){
@@ -288,22 +354,37 @@ public class World
 
   }
 
-
+  // D C M C M D
 
 
   public void keyReleased(int key)
   {
     if(key == KeyEvent.VK_SPACE)//space
-    {
       turn++;
-    }
+    if(key == KeyEvent.VK_RIGHT)
+      if(pan<gridWidth-(gridHeight/8)*15) pan+=2;
+    if(key == KeyEvent.VK_LEFT)
+      if (pan>1)pan-=2;
+
   }
 
   public void mouseMoved(int x, int y)
   {
     mouseX = x;
     mouseY = y;
-  }
+    if(mouseX<60 && pan>=.2)
+      pan-=.2;
+    if(mouseX<30 && pan>=.2)
+      pan-=.2;
+    if(mouseX>1140 && pan <=gridWidth-(gridHeight/8)*15-.2)
+      pan += .2;
+    if(mouseX>1170 && pan <=gridWidth-(gridHeight/8)*15-.2)
+      pan += .2;
+    if (pan >=gridWidth-(gridHeight/8)*15-.2)
+      pan = gridWidth-(gridHeight/8)*15;
+    if(pan<=.2)
+      pan = 0;
+    }
   
   public String getTitle()
   {
@@ -312,68 +393,107 @@ public class World
 
 
 
-  //Total map 2:5
-  /*
-    0123456789ABCDE
-  0 SSS____________
-  1 SSS____________
-  2 SSS____________
-  3 SSS____________
-  4 SSS____________
-  5 DDDDDDDDDDDDDDD
-
-  D-data
-  S-starting zone
-  _-mining zone
-
-   */
+  //Total view 15:8
 
   public void paintComponent(Graphics g) {
-
+    int viewWidth = (gridHeight/8)*15;
+    double xScaler = ((double)width)/viewWidth;
+    Font font = new Font("Arial", Font.PLAIN, 14);
+    g.setFont(font);
 
 
     g.setColor(new Color(11, 173, 14));
-    g.fillRect(0, 0, (int)(xScaler*3),(int)(yScaler*gridHeight));
+    g.fillRect(0, 0, (int)(xScaler*(((gridHeight/8)*15)/5)),(int)(yScaler*gridHeight));
     g.setColor(new Color(157, 103, 23));
-    g.fillRect((int)(xScaler*3), 0, (int)(xScaler*gridWidth), (int)(yScaler*gridHeight));
+    g.fillRect((int)(xScaler*((gridHeight/8)*15)/5-pan*xScaler), 0, (int)(xScaler*gridWidth), (int)(yScaler*gridHeight));
     g.setColor(new Color(23, 23, 23));
     g.fillRect(0, (int)(yScaler*gridHeight), width, height);
 
 
-    for(int i = 0; i < gridWidth; i++)
+
+    for(int i = (int)pan; i < viewWidth+pan; i++)
       for(int j = 0; j<gridHeight; j++)
       {
+        g.setColor(new Color(94, 94, 94));
+        g.drawRect((int)((i-pan)*xScaler),(int)(j*yScaler),(int)xScaler,(int)yScaler);
 
-        g.drawRect((int)(i*xScaler),(int)(j*yScaler),(int)xScaler,(int)yScaler);
 
 
         Sprite sprite = sprites[i][j];
         if(sprite instanceof Miner)
         {
-
           Graphics2D g2 = (Graphics2D) g;
           AffineTransform old = g2.getTransform();
-          g2.rotate(Math.toRadians(((Miner) sprite).getDir() * 90+90),(int)(i*xScaler)+sprite.getWidth()/2, (int)(j*xScaler)+sprite.getHeight()/2);
-          g2.drawImage(Display.getImage(sprite.getImage()),
-                  (int)(i*xScaler),
-                  (int)(j*xScaler),
-                  sprite.getWidth(), sprite.getHeight(), null);
+          Font font2 = new Font("Futura", Font.BOLD, 14);
+          g2.setFont(font2);
+          FontMetrics fontMetrics = g2.getFontMetrics();
 
+
+          g2.rotate(Math.toRadians(((Miner) sprite).getDir() * 90+90),(int)((i-pan)*xScaler)+xScaler/2, (int)(j*xScaler)+yScaler/2);
+          g2.drawImage(Display.getImage(sprite.getImage()),
+                  (int)((i-pan)*xScaler),
+                  (int)(j*yScaler),
+                  (int)(yScaler),(int)xScaler, null);
           g2.setTransform(old);
+          if(mouseX>(int)((i-pan)*xScaler) && mouseX < (int)((i-pan)*xScaler) + (int)xScaler &&
+                  mouseY>(int)(j*yScaler)       && mouseY < (int)(j*yScaler) + (int)(yScaler)) {
+            g2.setColor(Color.BLACK);
+            g2.drawRect((int)((i-pan)*xScaler-1),(int)(j*yScaler)-1 ,(int)fontMetrics.getStringBounds(((Miner)sprite).getName(), g).getWidth()+1,1+(int)fontMetrics.getStringBounds(((Miner)sprite).getName(), g).getHeight());
+            g2.setColor(Color.WHITE);
+            g2.fillRect((int)((i-pan)*xScaler),(int)(j*yScaler) ,(int)fontMetrics.getStringBounds(((Miner)sprite).getName(), g).getWidth(),(int)fontMetrics.getStringBounds(((Miner)sprite).getName(), g).getHeight());
+            g2.drawString(((Miner) sprite).getName(), (int) ((i - pan) * xScaler) + (int) xScaler / 2, (int) (j * yScaler) + (int) (yScaler) / 2);
+          }
         }
         else if(sprite != null && sprite.getImage()!=null)
         {
           g.drawImage(Display.getImage(sprite.getImage()),
-                  (int)(i*xScaler),
-                  (int)(j*xScaler),
-                  sprite.getWidth(), sprite.getHeight(), null);
+                  (int)((i-pan)*xScaler),
+                  (int)(j*yScaler),
 
 
-          if(sprite.touching(mouseX,mouseY)) {
-            g.drawString("[" + i + ", "  +j + "]",10, height-height/5-10);
-          }
+                   
+                  (int)yScaler, (int)xScaler, null);
+
+
+
         }
       }
+    g.setColor(new Color(255, 255, 255));
+    g.drawString("[" + (int)(mouseX/xScaler + pan) + ", " + (int)(mouseY/yScaler) + "]", 5, height - height / 5 + 20);
 
+    int textX = 5;
+    int textY = 3;
+
+    double longestText = 0;
+    FontMetrics fontMetrics = g.getFontMetrics();
+    font = new Font("Arial", Font.PLAIN, 14);
+    g.setFont(font);
+    for(Map.Entry<String, Integer> entry : scores.entrySet())
+    {
+      String str = entry.getKey().substring(1) + ": " + entry.getValue();
+      if(textY+30>=height - 4*height / 5 -15)
+      {
+        textY = 3;
+        textX += longestText+5;
+      }
+      if(fontMetrics.getStringBounds(str, g).getWidth()>longestText)
+        longestText = fontMetrics.getStringBounds(str, g).getWidth();
+      switch (entry.getKey().substring(0,1)){
+        case "y": g.setColor(Color.YELLOW); break;
+        case "r": g.setColor(Color.RED); break;
+        case "b": g.setColor(Color.BLUE); break;
+        case "g": g.setColor(Color.GREEN); break;
+        case "p": g.setColor(new Color(159, 1, 138)); break;
+        case "i": g.setColor(Color.pink); break;
+        case "l": g.setColor(Color.GRAY); break;
+        case "w": g.setColor(Color.WHITE); break;
+        case "o": g.setColor(Color.ORANGE); break;
+        default: g.setColor(Color.CYAN); break;
+      }
+      g.drawString(str,textX , height-textY);
+      textY+=18;
+      ///System.out.println("textY: " + textY + " h: " + (height - 4*height / 5 + 20));
+
+    }
   }
 }

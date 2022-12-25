@@ -4,8 +4,8 @@ public class Bomb extends Sprite {
         return health;
     }
 
-    public boolean mine() {
-        return false;
+    public int mine() {
+        return 0;
     }
 
     private int health;

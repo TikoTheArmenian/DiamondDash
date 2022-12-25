@@ -4,16 +4,17 @@ public class Stone extends Sprite {
         return health;
     }
 
-    public boolean mine() {
+    public int mine() {
         health-=1;
         switch (health) {
-            case 4: setImage("images/stone1.png");
-                break;
-            case 3: setImage("images/stone2.png");
-                break;
-            case 2: setImage("images/stone3.png");
+            case 3 -> setImage("images/stone1.png");
+            case 2 -> setImage("images/stone2.png");
+            case 1 -> setImage("images/stone3.png");
         }
-        return health == 0;
+        if(health <=0)
+            return -1;
+        else
+            return 0;
     }
 
     private int health;
@@ -21,7 +22,7 @@ public class Stone extends Sprite {
     {
 
         super(left, top, width, height, "images/stone0.png");
-        health = 5;
+        health = 4;
     }
 
     public String toString()

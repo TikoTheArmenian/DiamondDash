@@ -8,7 +8,8 @@ public class Play {
         bots.add(new testBot());
         bots.add(new testBot());
         bots.add(new testBot());
-        Display display = new Display(15, 8, bots);
+        bots.add(new testBot());
+        Display display = new Display(120, 16, bots); // height should be divisible by 8
         display.run();
     }
 }

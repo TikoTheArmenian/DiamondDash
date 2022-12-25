@@ -155,8 +155,8 @@ public class Sprite
     //do NOT insert any code here
   }
 
-    public boolean mine() {
+    public int mine() {
       System.out.println("tried to run mine in Sprite");
-      return false;
+      return 0;
     }
 }
