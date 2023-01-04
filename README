@@ -3,17 +3,17 @@ Welcome to Diamond Dash!
 The only classes you will need to access for this bot competition are Play and any bots you decide to make (TestBot is provided as an example)
 
 Every bot method includes the following methods
-    - void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers)
-        - currentLocation --> (x,y) coordinates of the bot
-        - mapWidth --> how wide the map is (# of grid boxes not pixels)
-        - mapHeight --> how high the map is (# of grid boxes not pixels)
+- void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers)
+- currentLocation --> (x,y) coordinates of the bot
+- mapWidth --> how wide the map is (# of grid boxes not pixels)
+- mapHeight --> how high the map is (# of grid boxes not pixels)
 
     - String newTurn(Location currentLocation, String[] objectsDetected)
         - currentLocation --> current (x,y) coordinates of the bot
         - objectsDetected --> an array of strings which has all the object detected around the bot in the following format:
-             objectsDetected[0] objectsDetected[1] objectsDetected[2]
-             objectsDetected[3] [YOUR BOT IS HERE] objectsDetected[4]
-             objectsDetected[5] objectsDetected[6] objectsDetected[8]
+              objectsDetected[0] objectsDetected[1] objectsDetected[2]
+              objectsDetected[3] [YOUR BOT IS HERE] objectsDetected[4]
+              objectsDetected[5] objectsDetected[6] objectsDetected[8]
              - Possible strings include:
                   "EMPTY"
                   "STONE"
@@ -27,5 +27,5 @@ Every bot method includes the following methods
             "TURN_LEFT" --> Turns bot left
             "MINE" --> mines whatever is in front of it
             anything else will result in bot doing nothing
-       - String getName();
-          - Return what you want your bot to be named (only runs once at the start)
+        - String getName();
+           - Return what you want your bot to be named (only runs once at the start)

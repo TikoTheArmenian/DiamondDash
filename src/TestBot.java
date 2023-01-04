@@ -24,9 +24,6 @@ public class TestBot implements Bot {
     [0, 1, 2,
      3,Bot 4,
      5, 6, 7]
-     "EMPTY"
-     "STONE"
-     "MAPS_EDGE"
      */
 
     @Override
