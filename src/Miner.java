@@ -76,6 +76,6 @@ public class Miner extends Sprite {
 
     @Override
     public String toString() {
-        return bot.getName();
+        return name;
     }
 }

@@ -2,12 +2,11 @@ import java.util.Random;
 
 public class testBot implements Bot {
 
-    private static final String[] ADJECTIVES = {
-            "Awesome", "Brave", "Clever", "Daring", "Elegant", "Fierce", "Gleaming", "Intelligent", "Jaunty", "Keen", "Lively"
-    };
-    private static final String[] NOUNS = {
-            "Android", "Bot", "Cyborg", "Droid", "Gynoid", "Machine", "Robot", "Synthetic", "Transformer", "Unit", "Warrior"
-    };
+    private static final String[] ADJECTIVES = {"Awesome", "Brave", "Clever", "Daring", "Elegant", "Fierce", "Gleaming", "Intelligent", "Jaunty", "Keen", "Lively"};
+    private static final String[] NOUNS = {"Android", "Bot", "Cyborg", "Droid", "Gynoid", "Machine", "Robot", "Synthetic", "Transformer", "Unit", "Warrior"};
+
+
+
     @Override
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers) {
 
