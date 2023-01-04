@@ -27,7 +27,7 @@ public class Diamond extends Sprite {
 
     public String toString()
     {
-        return "STONE";
+        return "DIAMOND";
     }
 
 
