@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class testBot implements Bot {
+public class TestBot implements Bot {
 
     private static final String[] ADJECTIVES = {"Awesome", "Brave", "Clever", "Daring", "Elegant", "Fierce", "Gleaming", "Intelligent", "Jaunty", "Keen", "Lively"};
     private static final String[] NOUNS = {"Android", "Bot", "Cyborg", "Droid", "Gynoid", "Machine", "Robot", "Synthetic", "Transformer", "Unit", "Warrior"};

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class complexBot implements Bot {
+public class ComplexBot implements Bot {
 
     private static final String[] ADJECTIVES = {
             "Awesome", "Brave", "Clever", "Daring", "Elegant", "Fierce", "Gleaming", "Intelligent", "Jaunty", "Keen", "Lively"

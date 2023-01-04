@@ -5,30 +5,30 @@ public class Play {
     public static void main(String[] args)
     {
         ArrayList<Bot> bots = new ArrayList<Bot>();
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
-        bots.add(new complexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
 
 
 
