@@ -44,7 +44,7 @@ public class Display extends JComponent implements KeyListener, MouseListener, M
   private World world;
   private Queue<KeyEvent> keys;
   
-  public Display(final int width, final int height, ArrayList<Bot> bots)
+  public Display(final int width, final int height, ArrayList<Bot> bots, int tickRate)
   {
 
 
@@ -56,7 +56,7 @@ public class Display extends JComponent implements KeyListener, MouseListener, M
     try
     {
       SwingUtilities.invokeAndWait(new Runnable() { public void run() {
-        world = new World(width, height, bots);
+        world = new World(Math.max((int)((((int)(height/8) * 8)*(3.0/8)))+1, width), (int)(height/8) * 8, bots, tickRate);
         
         frame = new JFrame();
         frame.setTitle("World");
@@ -179,4 +179,5 @@ public class Display extends JComponent implements KeyListener, MouseListener, M
 
 
   }
+
 }

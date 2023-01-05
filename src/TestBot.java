@@ -1,4 +1,11 @@
-public class testBot implements Bot {
+import java.util.Random;
+
+public class TestBot implements Bot {
+
+    private static final String[] ADJECTIVES = {"Awesome", "Brave", "Clever", "Daring", "Elegant", "Fierce", "Gleaming", "Intelligent", "Jaunty", "Keen", "Lively"};
+    private static final String[] NOUNS = {"Android", "Bot", "Cyborg", "Droid", "Gynoid", "Machine", "Robot", "Synthetic", "Transformer", "Unit", "Warrior"};
+
+
 
     @Override
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers) {
@@ -17,9 +24,6 @@ public class testBot implements Bot {
     [0, 1, 2,
      3,Bot 4,
      5, 6, 7]
-     "EMPTY"
-     "STONE"
-     "MAPS_EDGE"
      */
 
     @Override
@@ -34,6 +38,10 @@ public class testBot implements Bot {
     @Override
     public String getName()
     {
-        return "Test Bot";
+        Random random = new Random();
+        int adjIndex = random.nextInt(ADJECTIVES.length);
+        int nounIndex = random.nextInt(NOUNS.length);
+        return ADJECTIVES[adjIndex] + " " + NOUNS[nounIndex];
+
     }
 }
