@@ -28,6 +28,7 @@ public class World {
     private int mouseY;
     private int tickRate;
     private long timer;
+    private boolean doTurn = true;
 
     private double pan;
 
@@ -249,12 +250,13 @@ public class World {
         //j --> y
         //Iterates through each sprite once per turn
 
-        if (System.currentTimeMillis() - timer >= tickRate) {
+        if (System.currentTimeMillis() - timer >= tickRate && doTurn
+        ) {
             turn++;
             timer = System.currentTimeMillis();
         }
 
-        if (turnsPlayed < turn) {
+        if (turnsPlayed < turn && doTurn) {
             String[][] actions = new String[gridWidth][gridHeight];
             for (int i = 0; i < gridWidth; i++)
                 for (int j = 0; j < gridHeight; j++) {
@@ -383,8 +385,8 @@ public class World {
 
 
     public void keyPressed(int key) {
-        if (key == KeyEvent.VK_SPACE)//space
-            timer = System.currentTimeMillis();
+        if (key == KeyEvent.VK_SPACE)
+            doTurn = false;
 
 
     }
@@ -393,8 +395,10 @@ public class World {
 
 
     public void keyReleased(int key) {
-        if (key == KeyEvent.VK_SPACE)//space
-            turn++;
+        if (key == KeyEvent.VK_SPACE) {//space
+            doTurn = true;
+            timer = System.currentTimeMillis();
+        }
         if (key == KeyEvent.VK_RIGHT)
             if (pan < gridWidth - (gridHeight / 8) * 15) pan += 2;
         if (key == KeyEvent.VK_LEFT)
