@@ -43,7 +43,7 @@ public class ComplexBot implements Bot {
      */
 
     @Override
-    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal) {
+    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald) {
 //        System.out.println("[ " + objectsDetected[0] + ", " + objectsDetected[1] + ", " + objectsDetected[2] + "\n"
 //                + objectsDetected[3] + ", " + "BOT" + ", " + objectsDetected[4] + "\n"
 //                + objectsDetected[5] + ", " + objectsDetected[6] + ", " + objectsDetected[7] + "]");
@@ -55,52 +55,52 @@ public class ComplexBot implements Bot {
 
         if(facing == 1)
             if(objectsDetected[4].equals("EMPTY"))
-                //if(numCoal>3)
-                //    moveOrMine = "COAL";
-                //else
+              //  if(numEmerald>5)
+              //      moveOrMine = "VISION";
+              //  else
                     moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
         else if (facing == 2)
             if(objectsDetected[6].equals("EMPTY"))
-               // if(numCoal>3)
-               //     moveOrMine = "COAL";
-               // else
+             //  if(numEmerald>5)
+              //      moveOrMine = "VISION";
+              // else
                     moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
         else if (facing == 3)
             if(objectsDetected[3].equals("EMPTY"))
-                //if(numCoal>3)
-               //     moveOrMine = "COAL";
+                //if(numEmerald>5)
+               //     moveOrMine = "VISION";
                // else
                     moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
         else
             if(objectsDetected[1].equals("EMPTY"))
-                //if(numCoal>3)
-               //     moveOrMine = "COAL";
-               // else
+                //if(numEmerald>5)
+                   // moveOrMine = "VISION";
+              //  else
                     moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
-
-        if (objectsDetected[1].equals("DIAMOND"))
+        //TODO: PROBLEM OCCURS BECAUSE OF THIS WITH OBJECTS DETECTED EMERALD
+        if (objectsDetected[1].equals("DIAMOND") || objectsDetected[1].equals("EMERALD"))
             return doUp(moveOrMine);
-        if (objectsDetected[4].equals("DIAMOND"))
+        if (objectsDetected[4].equals("DIAMOND") || objectsDetected[4].equals("EMERALD"))
             return doRight(moveOrMine);
-        if (objectsDetected[6].equals("DIAMOND"))
+        if (objectsDetected[6].equals("DIAMOND") || objectsDetected[6].equals("EMERALD"))
             return doDown(moveOrMine);
-        if (objectsDetected[3].equals("DIAMOND"))
+        if (objectsDetected[3].equals("DIAMOND") || objectsDetected[3].equals("EMERALD"))
             return doLeft(moveOrMine);
-        if (objectsDetected[0].equals("DIAMOND"))
+        if (objectsDetected[0].equals("DIAMOND") || objectsDetected[0].equals("EMERALD"))
             return doUp(moveOrMine);
-        if (objectsDetected[2].equals("DIAMOND"))
+        if (objectsDetected[2].equals("DIAMOND") || objectsDetected[2].equals("EMERALD"))
             return doRight(moveOrMine);
-        if (objectsDetected[5].equals("DIAMOND"))
+        if (objectsDetected[5].equals("DIAMOND") || objectsDetected[5].equals("EMERALD"))
             return doDown(moveOrMine);
-        if (objectsDetected[7].equals("DIAMOND"))
+        if (objectsDetected[7].equals("DIAMOND") || objectsDetected[7].equals("EMERALD"))
             return doRight(moveOrMine);
 
         return doRight(moveOrMine);

@@ -6,7 +6,7 @@ public class Action {
 
     private boolean coal;
 
-
+    private boolean emerald;
     public void move() {
         move = true;
     }
@@ -27,6 +27,10 @@ public class Action {
         coal = true;
     }
 
+    public void emerald(boolean emerald) {
+        emerald = true;
+    }
+
     public boolean getMove() {
         return move;
     }
@@ -41,12 +45,17 @@ public class Action {
         return coal;
     }
 
+    public boolean isEmerald() {
+        return emerald;
+    }
+
     public Action()
     {
         move=false;
         turn = 0;
         mine=false;
         coal=false;
+        emerald=false;
     }
 
 

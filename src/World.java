@@ -197,6 +197,35 @@ public class World {
 
     }
 
+    public String[] getOreAround(int x, int y) {
+        String[] objectsArround = new String[8];
+        for (int i = 0; i < objectsArround.length; i++) {
+
+            int dx = i % 3 - 1;
+            int dy = i / 3 - 1;
+            if(i>3)
+            {
+                dx = (i+1) % 3 - 1;
+                dy = (i+1) / 3 - 1;
+            }
+            int newX = x + dx;
+            int newY = y + dy;
+            if (newX < 0 || newY < 0 || newX >= gridWidth || newY >= gridHeight) {
+                objectsArround[i] = "MAPS_EDGE";
+            } else if (sprites[newX][newY] == null) {
+                objectsArround[i] = "EMPTY";
+            } else if (sprites[newX][newY] instanceof Miner) {
+                objectsArround[i] = "BOT:" + sprites[newX][newY].toString();
+            } else {
+                objectsArround[i] = sprites[newX][newY].toString();
+            }
+        }
+
+
+        return objectsArround;
+
+    }
+
     public String[] getObjectsArround(int x, int y) {
         String[] objectsArround = new String[8];
 
@@ -302,7 +331,14 @@ public class World {
                                     actions[i][j] = "l_MINE";
                                 else if (dir == 1 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)))
                                     actions[i][j] = "d_MINE";
-                            } else {
+                            }
+                            //make the action vision, have it so that you can see the next 3 blocks in front of you
+                            else if (action.equals("VISION")) {
+                                //make it send the bot who called it an array of the locations of all diamond blocks within 10 blocks
+                                //generate an array of all diamond blocks within 10 blocks
+
+                            }
+                            else {
                                 actions[i][j] = action;
                             }
                         } else

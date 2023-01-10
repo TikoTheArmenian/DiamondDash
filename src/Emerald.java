@@ -7,8 +7,10 @@ public class Emerald extends Sprite {
     public int mine() {
         health-=1;
         switch (health) {
-            case 3 -> setImage("images/Emerald1.png");
-            case 2 -> setImage("images/Emerald2.png");
+            case 5 -> setImage("images/Emerald1.png");
+            case 4 -> setImage("images/Emerald15.png");
+            case 3 -> setImage("images/Emerald2.png");
+            case 2 -> setImage("images/Emerald25.png");
             case 1 -> setImage("images/Emerald3.png");
         }
         if(health <=0)
@@ -22,7 +24,7 @@ public class Emerald extends Sprite {
     {
 
         super(left, top, width, height, "images/Emerald0.png");
-        health = 4;
+        health = 6;
     }
 
     public String toString()

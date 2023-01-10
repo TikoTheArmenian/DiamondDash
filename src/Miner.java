@@ -70,7 +70,7 @@ public class Miner extends Sprite {
 
     public String turn(int gridX, int gridY, String[] objectsDetected)
     {
-        return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal);
+        return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal, emerald);
     }
 
     public void turnRight()
