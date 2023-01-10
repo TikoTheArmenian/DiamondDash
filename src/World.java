@@ -14,11 +14,11 @@ public class World {
 
     final boolean print = false;
     final double rockSpawnRate = .45;
-    final double diamondSpawnRate = .0;
+    final double diamondSpawnRate = .05;
 
-    final double coalSpawnRate = .0;
+    final double coalSpawnRate = .3;
 
-    final double emeraldSpawnRate = 0.3;
+    final double emeraldSpawnRate = 0.2;
 
     private ArrayList<Bot> bots;
 
@@ -391,12 +391,12 @@ public class World {
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 8 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
                                     }
                                     if (mine == 3){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                                         ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
                                     }
                                 }
