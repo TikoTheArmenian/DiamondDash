@@ -13,12 +13,12 @@ import java.util.Collection;
 public class World {
 
     final boolean print = false;
-    final double rockSpawnRate = .45;
+    final double rockSpawnRate = .6;
     final double diamondSpawnRate = .05;
 
-    final double coalSpawnRate = .3;
+    final double coalSpawnRate = .2;
 
-    final double emeraldSpawnRate = 0.2;
+    final double emeraldSpawnRate = .1;
 
     private ArrayList<Bot> bots;
 
@@ -335,13 +335,11 @@ public class World {
                            //THE ONLY PROBLEM WITH THIS IS IF YOU DO VISION WITH LESS Than 5 automatically loose a turn
                             else if (action.equals("VISION")) {
                                 if(((Miner) sprite).getEmerald()>5) {
-
                                     ArrayList<Location> diamonds = new ArrayList<Location>();
                                     for (int g = 0; g < gridWidth; g++) {
                                         for (int h = 0; h < gridHeight; h++) {
-                                            if (sprites[g][h] instanceof Diamond) {
+                                            if (sprites[g][h] instanceof Diamond && (g-j>20 || g-j<20) && (h-i>20 || h-i<20)) {
                                                 diamonds.add(new Location(g, h));
-
                                             }
                                         }
                                     }
@@ -392,7 +390,7 @@ public class World {
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
@@ -415,7 +413,7 @@ public class World {
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
@@ -438,7 +436,7 @@ public class World {
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
                                     }
                                     if (mine == 3){
@@ -460,7 +458,7 @@ public class World {
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
