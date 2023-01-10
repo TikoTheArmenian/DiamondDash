@@ -146,7 +146,7 @@ public class World {
 
                     ((Miner) sprites[i][j]).setName(scoreKey.toString());
                     scores.put(scoreKey.toString(), 0);
-
+                    ((Miner) sprites[i][j]).setCoal(10);
                     bots.remove(0);
                 }
                 iterator++;
@@ -382,82 +382,93 @@ public class World {
                             case "TURN_LEFT" -> ((Miner) sprites[i][j]).turnLeft();
                             case "TURN_RIGHT" -> ((Miner) sprites[i][j]).turnRight();
                             case "r_MINE" -> {
-                                if (sprites[i + 1][j] != null) {
+                                if (sprites[i + 1][j] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i + 1][j].mine();
                                     if (mine != 0) sprites[i + 1][j] = null;
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 8 + 1);
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
+                                    if (mine == 3){
+                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
+                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                                        ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
+                                }
+                            }
+                            case "u_MINE" -> {
+                                if (sprites[i][j - 1] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
+                                    int mine = sprites[i][j - 1].mine();
+                                    if (mine != 0) sprites[i][j - 1] = null;
+                                    if (mine == 1) {
+                                        int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
+                                    if (mine == 2){
+                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
+                                    if (mine == 3){
+                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
+                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                                        ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
+                                }
+                            }
+                            case "l_MINE" -> {
+                                if (sprites[i - 1][j] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
+                                    int mine = sprites[i - 1][j].mine();
+                                    if (mine != 0) sprites[i - 1][j] = null;
+                                    if (mine == 1) {
+                                        int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
+                                    if (mine == 2){
+                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
                                     }
                                     if (mine == 3){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                                         ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
-                                    }
-                                }
-                            }
-                            case "u_MINE" -> {
-                                if (sprites[i][j - 1] != null) {
-                                    int mine = sprites[i][j - 1].mine();
-                                    if (mine != 0) sprites[i][j - 1] = null;
-                                    if (mine == 1) {
-                                        int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
-                                    }
-                                    if (mine == 2){
-                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
-                                    }
-                                    if (mine == 3){
-                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-                                        ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
-                                    }
-                                }
-                            }
-                            case "l_MINE" -> {
-                                if (sprites[i - 1][j] != null) {
-                                    int mine = sprites[i - 1][j].mine();
-                                    if (mine != 0) sprites[i - 1][j] = null;
-                                    if (mine == 1) {
-                                        int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
-                                    }
-                                    if (mine == 2){
-                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
-                                    }
-                                    if (mine == 3){
-                                        scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-                                        ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                 }
                             }
                             case "d_MINE" -> {
-                                if (sprites[i][j + 1] != null) {
+                                if (sprites[i][j + 1] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i][j + 1].mine();
                                     if (mine != 0) sprites[i][j + 1] = null;
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int coalRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                                        int coalRNG = ThreadLocalRandom.current().nextInt(5, 7 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 3){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
-                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+                                        int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                                         ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                 }
                             }
