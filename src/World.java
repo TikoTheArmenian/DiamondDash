@@ -5,9 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class World {
 
@@ -288,6 +286,7 @@ public class World {
                             } else {
                                 actions[i][j] = action;
                             }
+
                         } else
                             sprite.step(this);
                     }
@@ -485,7 +484,17 @@ public class World {
         FontMetrics fontMetrics = g.getFontMetrics();
         font = new Font("Arial", Font.PLAIN, 14);
         g.setFont(font);
-        for (Map.Entry<String, Integer> entry : scores.entrySet()) {
+
+        // Create a linked hash map from the hash map
+        LinkedHashMap<String, Integer> linkedMap = new LinkedHashMap<>();
+        scores.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEachOrdered(x -> linkedMap.put(x.getKey(), x.getValue()));
+
+        // Loop through the linked hash map and print out the keys and values
+        for (Map.Entry<String, Integer> entry : linkedMap.entrySet()) {
+
+//        for (Map.Entry<String, Integer> entry : scores.entrySet()) {
             String str = entry.getKey().substring(1) + ": " + entry.getValue();
             if (textY + 30 >= height - 4 * height / 5 - 15) {
                 textY = 3;
