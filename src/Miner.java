@@ -1,6 +1,14 @@
+import java.util.ArrayList;
+
 public class Miner extends Sprite {
 
     private Bot bot;
+
+    int coal;
+
+    int emerald;
+
+    private ArrayList<Location> vision;
 
     public String getName() {
         return name;
@@ -41,6 +49,16 @@ public class Miner extends Sprite {
         this.gridY = gridY;
     }
 
+    public int getCoal() { return coal; }
+
+    public void setCoal(int coal) { this.coal = coal; }
+
+    public int getEmerald() { return emerald; }
+
+    public void setEmerald(int emerald) { this.emerald = emerald; }
+
+    public void vision(ArrayList<Location> vision){this.vision = vision;}
+
     int gridX;
     int gridY;
 
@@ -58,7 +76,7 @@ public class Miner extends Sprite {
 
     public String turn(int gridX, int gridY, String[] objectsDetected)
     {
-        return bot.newTurn(new Location(gridX,gridY),objectsDetected);
+        return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal, emerald, vision);
     }
 
     public void turnRight()

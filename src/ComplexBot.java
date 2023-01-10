@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ComplexBot implements Bot {
@@ -43,7 +44,7 @@ public class ComplexBot implements Bot {
      */
 
     @Override
-    public String newTurn(Location currentLocation, String[] objectsDetected) {
+    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, ArrayList<Location> vision) {
 //        System.out.println("[ " + objectsDetected[0] + ", " + objectsDetected[1] + ", " + objectsDetected[2] + "\n"
 //                + objectsDetected[3] + ", " + "BOT" + ", " + objectsDetected[4] + "\n"
 //                + objectsDetected[5] + ", " + objectsDetected[6] + ", " + objectsDetected[7] + "]");
@@ -51,28 +52,43 @@ public class ComplexBot implements Bot {
 //        System.out.println();
 
         String moveOrMine;
-
+        int coal = numCoal;
+        if(numEmerald > 5){
+            return "VISION";
+        }
         if(facing == 1)
             if(objectsDetected[4].equals("EMPTY"))
-                moveOrMine="MOVE";
+              //  if(numEmerald>5)
+              //      moveOrMine = "VISION";
+              //  else
+                    moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
         else if (facing == 2)
             if(objectsDetected[6].equals("EMPTY"))
-                moveOrMine="MOVE";
+             //  if(numEmerald>5)
+              //      moveOrMine = "VISION";
+              // else
+                    moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
         else if (facing == 3)
             if(objectsDetected[3].equals("EMPTY"))
-                moveOrMine="MOVE";
+                //if(numEmerald>5)
+               //     moveOrMine = "VISION";
+               // else
+                    moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
         else
             if(objectsDetected[1].equals("EMPTY"))
-                moveOrMine="MOVE";
+                //if(numEmerald>5)
+                   // moveOrMine = "VISION";
+              //  else
+                    moveOrMine = "MOVE";
             else
                 moveOrMine="MINE";
-
+        //TODO: PROBLEM OCCURS BECAUSE OF THIS WITH OBJECTS DETECTED EMERALD
         if (objectsDetected[1].equals("DIAMOND"))
             return doUp(moveOrMine);
         if (objectsDetected[4].equals("DIAMOND"))
