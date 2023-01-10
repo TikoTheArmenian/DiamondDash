@@ -52,7 +52,9 @@ public class ComplexBot implements Bot {
 
         String moveOrMine;
         int coal = numCoal;
-
+        if(numEmerald > 5){
+            return "VISION";
+        }
         if(facing == 1)
             if(objectsDetected[4].equals("EMPTY"))
               //  if(numEmerald>5)
@@ -86,21 +88,21 @@ public class ComplexBot implements Bot {
             else
                 moveOrMine="MINE";
         //TODO: PROBLEM OCCURS BECAUSE OF THIS WITH OBJECTS DETECTED EMERALD
-        if (objectsDetected[1].equals("DIAMOND") || objectsDetected[1].equals("EMERALD"))
+        if (objectsDetected[1].equals("DIAMOND"))
             return doUp(moveOrMine);
-        if (objectsDetected[4].equals("DIAMOND") || objectsDetected[4].equals("EMERALD"))
+        if (objectsDetected[4].equals("DIAMOND"))
             return doRight(moveOrMine);
-        if (objectsDetected[6].equals("DIAMOND") || objectsDetected[6].equals("EMERALD"))
+        if (objectsDetected[6].equals("DIAMOND"))
             return doDown(moveOrMine);
-        if (objectsDetected[3].equals("DIAMOND") || objectsDetected[3].equals("EMERALD"))
+        if (objectsDetected[3].equals("DIAMOND"))
             return doLeft(moveOrMine);
-        if (objectsDetected[0].equals("DIAMOND") || objectsDetected[0].equals("EMERALD"))
+        if (objectsDetected[0].equals("DIAMOND"))
             return doUp(moveOrMine);
-        if (objectsDetected[2].equals("DIAMOND") || objectsDetected[2].equals("EMERALD"))
+        if (objectsDetected[2].equals("DIAMOND"))
             return doRight(moveOrMine);
-        if (objectsDetected[5].equals("DIAMOND") || objectsDetected[5].equals("EMERALD"))
+        if (objectsDetected[5].equals("DIAMOND"))
             return doDown(moveOrMine);
-        if (objectsDetected[7].equals("DIAMOND") || objectsDetected[7].equals("EMERALD"))
+        if (objectsDetected[7].equals("DIAMOND"))
             return doRight(moveOrMine);
 
         return doRight(moveOrMine);

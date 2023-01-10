@@ -336,7 +336,18 @@ public class World {
                             else if (action.equals("VISION")) {
                                 //make it send the bot who called it an array of the locations of all diamond blocks within 10 blocks
                                 //generate an array of all diamond blocks within 10 blocks
-
+                                ArrayList<Location> diamonds = new ArrayList<Location>();
+                                for (int g = 0; g < gridWidth; g++) {
+                                    for (int h = 0; h < gridHeight; h++) {
+                                        if (sprites[g][h] instanceof Diamond) {
+                                            diamonds.add(new Location(g,h));
+                                            //add the location of the diamond to the array
+                                        }
+                                    }
+                                }
+                                //send the array to the bot
+                                ((Miner) sprite).vision(diamonds);
+                                ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 5);
                             }
                             else {
                                 actions[i][j] = action;

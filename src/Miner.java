@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Miner extends Sprite {
 
     private Bot bot;
@@ -52,6 +54,8 @@ public class Miner extends Sprite {
     public int getEmerald() { return emerald; }
 
     public void setEmerald(int emerald) { this.emerald = emerald; }
+
+    public void vision(ArrayList<Location> diamonds){}
 
     int gridX;
     int gridY;
