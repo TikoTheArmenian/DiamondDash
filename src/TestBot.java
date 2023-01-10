@@ -27,7 +27,7 @@ public class TestBot implements Bot {
      */
 
     @Override
-    public String newTurn(Location currentLocation, String[] objectsDetected) {
+    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal) {
 
 
         if(objectsDetected[4].equals("EMPTY"))

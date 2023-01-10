@@ -11,7 +11,6 @@ public class Play {
         //add a coal cap
         ArrayList<Bot> bots = new ArrayList<Bot>();
         bots.add(new ComplexBot());
-
         bots.add(new ComplexBot());
         /*
         bots.add(new ComplexBot());

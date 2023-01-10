@@ -4,6 +4,8 @@ public class Action {
     private int turn; //1 right -1 left
     private boolean move;
 
+    private boolean coal;
+
 
     public void move() {
         move = true;
@@ -21,6 +23,9 @@ public class Action {
         mine = true;
     }
 
+    public void coal(boolean coal) {
+        coal = true;
+    }
 
     public boolean getMove() {
         return move;
@@ -32,11 +37,16 @@ public class Action {
         return mine;
     }
 
+    public boolean isCoal() {
+        return coal;
+    }
+
     public Action()
     {
         move=false;
         turn = 0;
         mine=false;
+        coal=false;
     }
 
 

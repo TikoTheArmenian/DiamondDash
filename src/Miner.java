@@ -4,6 +4,8 @@ public class Miner extends Sprite {
 
     int coal;
 
+    int emerald;
+
     public String getName() {
         return name;
     }
@@ -47,6 +49,10 @@ public class Miner extends Sprite {
 
     public void setCoal(int coal) { this.coal = coal; }
 
+    public int getEmerald() { return emerald; }
+
+    public void setEmerald(int emerald) { this.emerald = emerald; }
+
     int gridX;
     int gridY;
 
@@ -64,7 +70,7 @@ public class Miner extends Sprite {
 
     public String turn(int gridX, int gridY, String[] objectsDetected)
     {
-        return bot.newTurn(new Location(gridX,gridY),objectsDetected);
+        return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal);
     }
 
     public void turnRight()
