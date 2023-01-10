@@ -229,41 +229,6 @@ public class World {
     public String[] getObjectsArround(int x, int y) {
         String[] objectsArround = new String[8];
 
-
-//        if (x == 0 || y == 0) objectsArround[0] = "MAPS_EDGE";
-//        else if (sprites[x - 1][y - 1] == null) objectsArround[0] = "EMPTY";
-//        else if (sprites[x - 1][y - 1] instanceof Miner) objectsArround[0] = "BOT:"+sprites[x - 1][y - 1].toString();
-//        else objectsArround[0] = sprites[x - 1][y - 1].toString();
-//        if (y == 0) objectsArround[1] = "MAPS_EDGE";
-//        else if (sprites[x][y - 1] == null) objectsArround[1] = "EMPTY";
-//        else if (sprites[x][y - 1] instanceof Miner) objectsArround[1] = "BOT:"+sprites[x][y - 1].toString();
-//        else objectsArround[1] = sprites[x][y - 1].toString();
-//        if (y == 0 || x == gridWidth - 1) objectsArround[2] = "MAPS_EDGE";
-//        else if (sprites[x + 1][y - 1] == null) objectsArround[2] = "EMPTY";
-//        else if (sprites[x + 1][y - 1] instanceof Miner) objectsArround[2] = "BOT:"+sprites[x + 1][y - 1].toString();
-//        else objectsArround[2] = sprites[x + 1][y - 1].toString();
-//        if (x == 0) objectsArround[3] = "MAPS_EDGE";
-//        else if (sprites[x - 1][y] == null) objectsArround[3] = "EMPTY";
-//        else if (sprites[x - 1][y] instanceof Miner) objectsArround[3] = "BOT:"+sprites[x - 1][y].toString();
-//        else objectsArround[3] = sprites[x - 1][y].toString();
-//        if (x == gridWidth - 1) objectsArround[4] = "MAPS_EDGE";
-//        else if (sprites[x + 1][y] == null) objectsArround[4] = "EMPTY";
-//        else if (sprites[x + 1][y] instanceof Miner) objectsArround[4] = "BOT:"+sprites[x + 1][y].toString();
-//        else objectsArround[4] = sprites[x + 1][y].toString();
-//        if (x == 0 || y == gridHeight - 1) objectsArround[5] = "MAPS_EDGE";
-//        else if (sprites[x - 1][y + 1] == null) objectsArround[5] = "EMPTY";
-//        else if (sprites[x - 1][y + 1] instanceof Miner) objectsArround[5] = "BOT:"+sprites[x - 1][y + 1].toString();
-//        else objectsArround[5] = sprites[x - 1][y + 1].toString();
-//        if (y == gridHeight - 1) objectsArround[6] = "MAPS_EDGE";
-//        else if (sprites[x][y + 1] == null) objectsArround[6] = "EMPTY";
-//        else if (sprites[x][y + 1] instanceof Miner) objectsArround[6] = "BOT:"+sprites[x][y + 1].toString();
-//        else objectsArround[6] = sprites[x][y + 1].toString();
-//        if (x == gridWidth - 1 || y == gridHeight - 1) objectsArround[7] = "MAPS_EDGE";
-//        else if (sprites[x + 1][y + 1] == null) objectsArround[7] = "EMPTY";
-//        else if (sprites[x + 1][y + 1] instanceof Miner) objectsArround[7] = "BOT:"+sprites[x + 1][y + 1].toString();
-//        else objectsArround[7] = sprites[x + 1][y + 1].toString();
-
-
         for (int i = 0; i < objectsArround.length; i++) {
 
             int dx = i % 3 - 1;
@@ -291,6 +256,29 @@ public class World {
 
     }
 
+    public String[][] fixActions(String[][] actions, ArrayList<Location> locs)
+    {
+        for(Location loc : locs)
+        {
+            ArrayList<Location> spotsMining = new ArrayList<>();
+            if(loc.getX()!=0 && actions[loc.getX()-1][loc.getY()].equals("r_MINE"))
+                spotsMining.add(loc);
+            if(loc.getY() != gridHeight && actions[loc.getX()][loc.getY()+1].equals("u_MINE"))
+                spotsMining.add(loc);
+            if(loc.getX() != gridWidth && actions[loc.getX()+1][loc.getY()].equals("l_MINE"))
+                spotsMining.add(loc);
+            if(loc.getY()!=0 && actions[loc.getX()][loc.getY()-1].equals("d_MINE"))
+                spotsMining.add(loc);
+            int miner = (int)(spotsMining.size()*Math.random());
+            for(int i = 0; i < spotsMining.size(); i++)
+                if(i!=miner)
+                    actions[spotsMining.get(i).getX()][spotsMining.get(i).getY()] = "";
+        }
+        return actions;
+    }
+
+
+
     public void stepAll() {
         //i --> x
         //j --> y
@@ -304,6 +292,7 @@ public class World {
 
         if (turnsPlayed < turn && doTurn) {
             String[][] actions = new String[gridWidth][gridHeight];
+            ArrayList<Location> locsBeingMined= new ArrayList<>();
             for (int i = 0; i < gridWidth; i++)
                 for (int j = 0; j < gridHeight; j++) {
                     actions[i][j] = "";
@@ -324,13 +313,22 @@ public class World {
                                     actions[i][j] = "d";
                             } else if (action.equals("MINE")) {
                                 if (dir == 0 && i != gridWidth - 1 && (sprites[i + 1][j] instanceof Stone || sprites[i + 1][j] instanceof Diamond || sprites[i + 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))
+                                {
                                     actions[i][j] = "r_MINE";
-                                else if (dir == 3 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)))
+                                    locsBeingMined.add(new Location(i + 1,j));
+                                }
+                                else if (dir == 3 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "u_MINE";
-                                else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)))
+                                    locsBeingMined.add(new Location(i,j-1));
+                                }
+                                else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "l_MINE";
-                                else if (dir == 1 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)))
+                                    locsBeingMined.add(new Location(i - 1,j));
+                                }
+                                else if (dir == 1 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "d_MINE";
+                                    locsBeingMined.add(new Location(i,j+1));
+                                }
                             }
                            //THE ONLY PROBLEM WITH THIS IS IF YOU DO VISION WITH LESS Than 5 automatically loose a turn
                             else if (action.equals("VISION")) {
@@ -355,6 +353,9 @@ public class World {
                             sprite.step(this);
                     }
                 }
+            actions = fixActions(actions,locsBeingMined);
+
+
             turnsPlayed++;
             for (int i = 0; i < gridWidth; i++)
                 for (int j = 0; j < gridHeight; j++) {
