@@ -2,6 +2,8 @@ public class Miner extends Sprite {
 
     private Bot bot;
 
+    int coal;
+
     public String getName() {
         return name;
     }
@@ -40,6 +42,10 @@ public class Miner extends Sprite {
     public void setGridY(int gridY) {
         this.gridY = gridY;
     }
+
+    public int getCoal() { return coal; }
+
+    public void setCoal(int coal) { this.coal = coal; }
 
     int gridX;
     int gridY;
