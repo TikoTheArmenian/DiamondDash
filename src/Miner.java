@@ -8,6 +8,8 @@ public class Miner extends Sprite {
 
     int emerald;
 
+    private ArrayList<Location> vision;
+
     public String getName() {
         return name;
     }
@@ -55,7 +57,7 @@ public class Miner extends Sprite {
 
     public void setEmerald(int emerald) { this.emerald = emerald; }
 
-    public void vision(ArrayList<Location> diamonds){}
+    public void vision(ArrayList<Location> vision){this.vision = vision;}
 
     int gridX;
     int gridY;
@@ -74,7 +76,7 @@ public class Miner extends Sprite {
 
     public String turn(int gridX, int gridY, String[] objectsDetected)
     {
-        return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal, emerald);
+        return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal, emerald, vision);
     }
 
     public void turnRight()

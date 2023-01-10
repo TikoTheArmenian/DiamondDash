@@ -332,22 +332,23 @@ public class World {
                                 else if (dir == 1 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)))
                                     actions[i][j] = "d_MINE";
                             }
-                            //make the action vision, have it so that you can see the next 3 blocks in front of you
+                           //THE ONLY PROBLEM WITH THIS IS IF YOU DO VISION WITH LESS Than 5 automatically loose a turn
                             else if (action.equals("VISION")) {
-                                //make it send the bot who called it an array of the locations of all diamond blocks within 10 blocks
-                                //generate an array of all diamond blocks within 10 blocks
-                                ArrayList<Location> diamonds = new ArrayList<Location>();
-                                for (int g = 0; g < gridWidth; g++) {
-                                    for (int h = 0; h < gridHeight; h++) {
-                                        if (sprites[g][h] instanceof Diamond) {
-                                            diamonds.add(new Location(g,h));
-                                            //add the location of the diamond to the array
+                                if(((Miner) sprite).getEmerald()>5) {
+
+                                    ArrayList<Location> diamonds = new ArrayList<Location>();
+                                    for (int g = 0; g < gridWidth; g++) {
+                                        for (int h = 0; h < gridHeight; h++) {
+                                            if (sprites[g][h] instanceof Diamond) {
+                                                diamonds.add(new Location(g, h));
+
+                                            }
                                         }
                                     }
+                                    //send the array to the bot
+                                    ((Miner) sprite).vision(diamonds);
+                                    ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 5);
                                 }
-                                //send the array to the bot
-                                ((Miner) sprite).vision(diamonds);
-                                ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 5);
                             }
                             else {
                                 actions[i][j] = action;

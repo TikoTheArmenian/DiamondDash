@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ComplexBot implements Bot {
@@ -43,7 +44,7 @@ public class ComplexBot implements Bot {
      */
 
     @Override
-    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald) {
+    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, ArrayList<Location> vision) {
 //        System.out.println("[ " + objectsDetected[0] + ", " + objectsDetected[1] + ", " + objectsDetected[2] + "\n"
 //                + objectsDetected[3] + ", " + "BOT" + ", " + objectsDetected[4] + "\n"
 //                + objectsDetected[5] + ", " + objectsDetected[6] + ", " + objectsDetected[7] + "]");
