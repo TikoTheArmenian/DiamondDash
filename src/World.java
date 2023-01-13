@@ -331,7 +331,7 @@ public class World {
                                 }
                             }
                             else if (action.equals("VISION")) {
-                                if(((Miner) sprite).getEmerald()>5) {
+                                if(((Miner) sprite).getEmerald()>3) {
                                     //make this a hash map
                                     HashMap<Location, String> vision = new HashMap<>();
                                     String[][] visions = new String[gridWidth][gridHeight];
@@ -350,7 +350,7 @@ public class World {
                                         }
                                     }
                                     ((Miner) sprite).vision(vision);
-                                    ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 5);
+                                    ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 3);
                                 }
                             }
                             else {
