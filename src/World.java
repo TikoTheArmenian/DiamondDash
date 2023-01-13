@@ -615,7 +615,7 @@ public class World {
         g.drawString("[" + (int) (mouseX / xScaler + pan) + ", " + (int) (mouseY / yScaler) + "]", 5, height - height / 5 + 20);
 
         int textX = 5;
-        int textY = 3;
+        int textY = 20;
 
         double longestText = 0;
         FontMetrics fontMetrics = g.getFontMetrics();
@@ -648,7 +648,7 @@ public class World {
             for (String name : maths) {
                 String str = name + ": " + scores.get(name);
                 if(textY + 30 >= height - 4 * height / 5 - 15){
-                    textY = 3;
+                    textY = 20;
                     textX += longestText + 5;
                 }
                 if (fontMetrics.getStringBounds(str, g).getWidth() > longestText)
