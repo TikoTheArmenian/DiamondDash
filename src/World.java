@@ -330,19 +330,26 @@ public class World {
                                     locsBeingMined.add(new Location(i,j+1));
                                 }
                             }
-                           //THE ONLY PROBLEM WITH THIS IS IF YOU DO VISION WITH LESS Than 5 automatically loose a turn
                             else if (action.equals("VISION")) {
                                 if(((Miner) sprite).getEmerald()>5) {
-                                    ArrayList<Location> diamonds = new ArrayList<Location>();
-                                    for (int g = 0; g < gridWidth; g++) {
+                                    //make this a hash map
+                                    HashMap<Location, String> vision = new HashMap<>();
+                                    String[][] visions = new String[gridWidth][gridHeight];
+                                    int l=((Miner)sprite).getGridX()-50;
+                                    if(l<0)
+                                        l=0;
+                                    int k=((Miner)sprite).getGridX()+50;
+                                    if(k>gridWidth)
+                                        k=gridWidth;
+                                    for (int g = l; g < k; g++) {
                                         for (int h = 0; h < gridHeight; h++) {
-                                            if (sprites[g][h] instanceof Diamond && (g-j>20 || g-j<20) && (h-i>20 || h-i<20)) {
-                                                diamonds.add(new Location(g, h));
-                                            }
+                                            if(sprites[g][h]==null)
+                                                vision.put(new Location(g,h),"EMPTY");
+                                            else
+                                                vision.put(new Location(g,h), sprites[g][h].toString());
                                         }
                                     }
-                                    //send the array to the bot
-                                    ((Miner) sprite).vision(diamonds);
+                                    ((Miner) sprite).vision(vision);
                                     ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 5);
                                 }
                             }
