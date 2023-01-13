@@ -23,7 +23,7 @@ public class Play {
         bots.add(new ComplexBot());
         bots.add(new ComplexBot());
         bots.add(new ComplexBot());
-        bots.add(new ComplexBot());        bots.add(new ComplexBot());
+        bots.add(new ComplexBot());
         bots.add(new ComplexBot());
 
 
