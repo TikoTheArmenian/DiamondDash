@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Miner extends Sprite {
 
@@ -8,7 +8,7 @@ public class Miner extends Sprite {
 
     int emerald;
 
-    private ArrayList<Location> vision;
+    private HashMap<Location,String> vision;
 
     public String getName() {
         return name;
@@ -57,7 +57,7 @@ public class Miner extends Sprite {
 
     public void setEmerald(int emerald) { this.emerald = emerald; }
 
-    public void vision(ArrayList<Location> vision){this.vision = vision;}
+    public void vision(HashMap<Location, String> vision){this.vision = vision;}
 
     int gridX;
     int gridY;

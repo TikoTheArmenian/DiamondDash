@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 
 public class ComplexBot implements Bot {
 
@@ -44,7 +46,7 @@ public class ComplexBot implements Bot {
      */
 
     @Override
-    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, ArrayList<Location> vision) {
+    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, HashMap<Location,String> vision) {
 //        System.out.println("[ " + objectsDetected[0] + ", " + objectsDetected[1] + ", " + objectsDetected[2] + "\n"
 //                + objectsDetected[3] + ", " + "BOT" + ", " + objectsDetected[4] + "\n"
 //                + objectsDetected[5] + ", " + objectsDetected[6] + ", " + objectsDetected[7] + "]");
@@ -53,7 +55,16 @@ public class ComplexBot implements Bot {
 
         String moveOrMine;
         int coal = numCoal;
+        boolean justVisioned=false;
+        if(justVisioned)
+        {
+            Set<Location> keys = vision.keySet();
+            for (Location key : keys) {
+                System.out.println("thevision at: " + vision.get(key).toString());
+            }
+        }
         if(numEmerald > 5){
+            justVisioned=true;
             return "VISION";
         }
         if(facing == 1)

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class TestBot implements Bot {
@@ -28,7 +29,7 @@ public class TestBot implements Bot {
      */
 
     @Override
-    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, ArrayList<Location> vision) {
+    public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, HashMap<Location,String> vision) {
 
 
         if(objectsDetected[4].equals("EMPTY"))
