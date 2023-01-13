@@ -13,12 +13,12 @@ import java.util.Collection;
 public class World {
 
     final boolean print = false;
-    final double rockSpawnRate = .6;
+    final double rockSpawnRate = .4;
     final double diamondSpawnRate = .05;
 
-    final double coalSpawnRate = .2;
+    final double coalSpawnRate = .1;
 
-    final double emeraldSpawnRate = .05;
+    final double emeraldSpawnRate = .02;
 
     private ArrayList<Bot> bots;
 
@@ -263,9 +263,9 @@ public class World {
             ArrayList<Location> spotsMining = new ArrayList<>();
             if(loc.getX()!=0 && actions[loc.getX()-1][loc.getY()].equals("r_MINE"))
                 spotsMining.add(loc);
-            if(loc.getY() != gridHeight && actions[loc.getX()][loc.getY()+1].equals("u_MINE"))
+            if(loc.getY() != gridHeight-1 && actions[loc.getX()][loc.getY()+1].equals("u_MINE"))
                 spotsMining.add(loc);
-            if(loc.getX() != gridWidth && actions[loc.getX()+1][loc.getY()].equals("l_MINE"))
+            if(loc.getX() != gridWidth-1 && actions[loc.getX()+1][loc.getY()].equals("l_MINE"))
                 spotsMining.add(loc);
             if(loc.getY()!=0 && actions[loc.getX()][loc.getY()-1].equals("d_MINE"))
                 spotsMining.add(loc);
@@ -622,7 +622,7 @@ public class World {
         g.drawString("[" + (int) (mouseX / xScaler + pan) + ", " + (int) (mouseY / yScaler) + "]", 5, height - height / 5 + 20);
 
         int textX = 5;
-        int textY = 3;
+        int textY = 20;
 
         double longestText = 0;
         FontMetrics fontMetrics = g.getFontMetrics();
@@ -655,7 +655,7 @@ public class World {
             for (String name : maths) {
                 String str = name + ": " + scores.get(name);
                 if(textY + 30 >= height - 4 * height / 5 - 15){
-                    textY = 3;
+                    textY = 20;
                     textX += longestText + 5;
                 }
                 if (fontMetrics.getStringBounds(str, g).getWidth() > longestText)

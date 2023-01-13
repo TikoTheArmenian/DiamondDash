@@ -10,11 +10,8 @@ public class Play {
         //fix top or bottom always has advantage
         //add a coal cap
         ArrayList<Bot> bots = new ArrayList<Bot>();
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        /*
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
+
+
         bots.add(new ComplexBot());
         bots.add(new ComplexBot());
         bots.add(new ComplexBot());
@@ -26,16 +23,10 @@ public class Play {
         bots.add(new ComplexBot());
         bots.add(new ComplexBot());
         bots.add(new ComplexBot());
+        bots.add(new ComplexBot());        bots.add(new ComplexBot());
         bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        bots.add(new ComplexBot());
-        */
+
+
         Display display = new Display(200 , 16, bots,60); // height MUST be divisible by 8 and width must be greater than 1/5 of height
         display.run();
     }
