@@ -331,7 +331,7 @@ public class World {
                                 }
                             }
                             else if (action.equals("VISION")) {
-                                if(((Miner) sprite).getEmerald()>5) {
+                                if(((Miner) sprite).getEmerald()>3) {
                                     //make this a hash map
                                     HashMap<Location, String> vision = new HashMap<>();
                                     String[][] visions = new String[gridWidth][gridHeight];
@@ -350,7 +350,7 @@ public class World {
                                         }
                                     }
                                     ((Miner) sprite).vision(vision);
-                                    ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 5);
+                                    ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 3);
                                 }
                             }
                             else {
@@ -621,9 +621,6 @@ public class World {
         g.setColor(new Color(255, 255, 255));
         g.drawString("[" + (int) (mouseX / xScaler + pan) + ", " + (int) (mouseY / yScaler) + "]", 5, height - height / 5 + 20);
 
-        int textX = 5;
-        int textY = 20;
-
         double longestText = 0;
         FontMetrics fontMetrics = g.getFontMetrics();
         font = new Font("Arial", Font.PLAIN, 14);
@@ -645,54 +642,58 @@ public class World {
                     }
                 }
             }
-            /*
-            for (int i = 0; i < maths.size() / 2; i++) {
-                String temp = maths.get(i);
-                maths.set(i, maths.get(maths.size() - i - 1));
-                maths.set(maths.size() - i - 1, temp);
-            }
-            */
-            for (String name : maths) {
-                String str = name + ": " + scores.get(name);
-                if(textY + 30 >= height - 4 * height / 5 - 15){
-                    textY = 20;
-                    textX += longestText + 5;
-                }
-                if (fontMetrics.getStringBounds(str, g).getWidth() > longestText)
-                    longestText = fontMetrics.getStringBounds(str, g).getWidth();
-                switch (name.substring(0,1)) {
-                    case "y" -> g.setColor(Color.YELLOW);
-                    case "r" -> g.setColor(Color.RED);
-                    case "b" -> g.setColor(Color.BLUE);
-                    case "g" -> g.setColor(Color.GREEN);
-                    case "p" -> g.setColor(new Color(159, 1, 138));
-                    case "i" -> g.setColor(Color.pink);
-                    case "l" -> g.setColor(Color.GRAY);
-                    case "w" -> g.setColor(Color.WHITE);
-                    case "o" -> g.setColor(Color.ORANGE);
-                    default -> g.setColor(Color.CYAN);
-                }
-                g.drawString(str.substring(1), textX, height - textY);
-                textY += 18;
-                //TODO: add in display diamond and coal
-                for (Miner m : miners) {
-                    String toDisplay = (m).getName().substring(1) + ": " + scores.get(m.getName()) + " diamonds, " + (m).getCoal() + " coal, " + (m).getEmerald() + " emerald";
-                    double textWidth = fontMetrics.getStringBounds(toDisplay, g).getWidth();
-                    double textHeight = fontMetrics.getStringBounds(toDisplay, g).getHeight();
-                    int x = (int) ((m.getGridX() - pan) * xScaler);
-                    int y = (int) (m.getGridY() * yScaler);
-                    if (mouseX > x && mouseX < x + (int) xScaler && mouseY > y && mouseY < y + (int) (yScaler)) {
-                        x -= textWidth / 2;
-                        y += textHeight / 2;
-                        g.setColor(Color.BLACK);
-                        g.drawRect(x - 1, y - 1, (int) textWidth + 1, 1 + (int) textHeight);
-                        g.setColor(Color.WHITE);
-                        g.fillRect(x, y, (int) textWidth, (int) textHeight);
-                        g.setColor(Color.BLACK);
-                        g.drawString(toDisplay, x + 2, y + 12);
-                    }
-                }
-            }
+        drawScores(g, xScaler, miners, longestText, fontMetrics, maths);
 
+
+    }
+
+    private void drawScores(Graphics g, double xScaler, ArrayList<Miner> miners, double longestText, FontMetrics fontMetrics, ArrayList<String> maths) {
+        int textX = 5;
+        int textY = 20;
+        for (String name : maths) {
+            String str = name + ": " + scores.get(name);
+            if(textY + 30 >= height - 4 * height / 5 - 15){
+                textY = 20;
+                textX += longestText + 5;
+            }
+            if (fontMetrics.getStringBounds(str, g).getWidth() > longestText)
+                longestText = fontMetrics.getStringBounds(str, g).getWidth();
+            setColor(g, name);
+            g.drawString(str.substring(1), textX, height - textY);
+            textY += 18;
+            //TODO: add in display diamond and coal
+            for (Miner m : miners) {
+                String toDisplay = (m).getName().substring(1) + ": " + scores.get(m.getName()) + " diamonds, " + (m).getCoal() + " coal, " + (m).getEmerald() + " emerald";
+                double textWidth = fontMetrics.getStringBounds(toDisplay, g).getWidth();
+                double textHeight = fontMetrics.getStringBounds(toDisplay, g).getHeight();
+                int x = (int) ((m.getGridX() - pan) * xScaler);
+                int y = (int) (m.getGridY() * yScaler);
+                if (mouseX > x && mouseX < x + (int) xScaler && mouseY > y && mouseY < y + (int) (yScaler)) {
+                    x -= textWidth / 2;
+                    y += textHeight / 2;
+                    g.setColor(Color.BLACK);
+                    g.drawRect(x - 1, y - 1, (int) textWidth + 1, 1 + (int) textHeight);
+                    g.setColor(Color.WHITE);
+                    g.fillRect(x, y, (int) textWidth, (int) textHeight);
+                    g.setColor(Color.BLACK);
+                    g.drawString(toDisplay, x + 2, y + 12);
+                }
+            }
+        }
+    }
+
+    private void setColor(Graphics g, String name) {
+        switch (name.substring(0,1)) {
+            case "y" -> g.setColor(Color.YELLOW);
+            case "r" -> g.setColor(Color.RED);
+            case "b" -> g.setColor(Color.BLUE);
+            case "g" -> g.setColor(Color.GREEN);
+            case "p" -> g.setColor(new Color(159, 1, 138));
+            case "i" -> g.setColor(Color.pink);
+            case "l" -> g.setColor(Color.GRAY);
+            case "w" -> g.setColor(Color.WHITE);
+            case "o" -> g.setColor(Color.ORANGE);
+            default -> g.setColor(Color.CYAN);
+        }
     }
 }

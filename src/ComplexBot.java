@@ -63,7 +63,7 @@ public class ComplexBot implements Bot {
                 System.out.println("thevision at: " + vision.get(key).toString());
             }
         }
-        if(numEmerald > 5){
+        if(numEmerald > 3){
             justVisioned=true;
             return "VISION";
         }
