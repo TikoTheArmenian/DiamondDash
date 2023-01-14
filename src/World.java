@@ -390,7 +390,10 @@ public class World {
                             case "r_MINE" -> {
                                 if (sprites[i + 1][j] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i + 1][j].mine();
-                                    if (mine != 0) sprites[i + 1][j] = null;
+                                    if (mine != 0) {
+                                        sprites[i + 1][j] = null;
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
@@ -413,7 +416,10 @@ public class World {
                             case "u_MINE" -> {
                                 if (sprites[i][j - 1] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i][j - 1].mine();
-                                    if (mine != 0) sprites[i][j - 1] = null;
+                                    if (mine != 0) {
+                                        sprites[i][j - 1] = null;
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
@@ -436,7 +442,10 @@ public class World {
                             case "l_MINE" -> {
                                 if (sprites[i - 1][j] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i - 1][j].mine();
-                                    if (mine != 0) sprites[i - 1][j] = null;
+                                    if (mine != 0) {
+                                        sprites[i - 1][j] = null;
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
@@ -458,7 +467,10 @@ public class World {
                             case "d_MINE" -> {
                                 if (sprites[i][j + 1] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i][j + 1].mine();
-                                    if (mine != 0) sprites[i][j + 1] = null;
+                                    if (mine != 0) {
+                                        sprites[i][j + 1] = null;
+                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
+                                    }
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
