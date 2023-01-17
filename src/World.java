@@ -668,6 +668,7 @@ public class World {
                     }
                 }
             }
+        System.out.println(maths.toString());
         drawScores(g, xScaler, miners, longestText, fontMetrics, maths);
 
 
