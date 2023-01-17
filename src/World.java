@@ -317,7 +317,7 @@ public class World {
                                     actions[i][j] = "r_MINE";
                                     locsBeingMined.add(new Location(i + 1,j));
                                 }
-                                else if (dir == 3 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                else if (dir == 1 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "u_MINE";
                                     locsBeingMined.add(new Location(i,j-1));
                                 }
@@ -325,7 +325,7 @@ public class World {
                                     actions[i][j] = "l_MINE";
                                     locsBeingMined.add(new Location(i - 1,j));
                                 }
-                                else if (dir == 1 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                else if (dir == 3 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "d_MINE";
                                     locsBeingMined.add(new Location(i,j+1));
                                 }
