@@ -148,6 +148,7 @@ public class World {
                     scores.put(scoreKey.toString(), 0);
                     ((Miner) sprites[i][j]).setCoal(10);
                     bots.remove(0);
+                    ((Miner) sprites[i][j]).newGame(new Location(i,j),gridWidth,gridHeight,bots.size());
                 }
                 iterator++;
             }
@@ -668,7 +669,6 @@ public class World {
                     }
                 }
             }
-        System.out.println(maths.toString());
         drawScores(g, xScaler, miners, longestText, fontMetrics, maths);
 
 

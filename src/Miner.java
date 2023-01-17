@@ -13,6 +13,10 @@ public class Miner extends Sprite {
     public String getName() {
         return name;
     }
+    public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers) {
+        bot.newGame(currentLocation,mapWidth,mapHeight, numPlayers);
+    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -76,7 +80,6 @@ public class Miner extends Sprite {
 
     public String turn(int gridX, int gridY, String[] objectsDetected)
     {
-        System.out.println(dir);
         return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal, emerald, vision);
 
     }
