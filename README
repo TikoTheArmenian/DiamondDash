@@ -63,6 +63,7 @@ The only classes you will need to access for this bot competition are Play and a
             "TURN_RIGHT" --> Turns bot right
             "TURN_LEFT" --> Turns bot left
             "MINE" --> mines whatever is in front of it
+            "VISION" --> uses vision powerup if you have three emeralds
             anything else will result in bot doing nothing
 
  - String getName();
