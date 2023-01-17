@@ -604,7 +604,21 @@ public class World {
                     FontMetrics fontMetrics = g2.getFontMetrics();
 
 
-                    g2.rotate(Math.toRadians(((Miner) sprite).getDir() * 90 + 90), (int) ((i - pan) * xScaler) + xScaler / 2, (int) (j * xScaler) + yScaler / 2);
+                    if(((Miner) sprite).getDir() == 0) {
+                        g2.rotate(Math.toRadians(90), (int) ((i - pan) * xScaler) + (int) xScaler / 2, (int) (j * yScaler) + (int) yScaler / 2);
+                    }
+                    else if (((Miner) sprite).getDir() == 1) {
+                        g2.rotate(Math.toRadians(0), (int) ((i - pan) * xScaler) + (int) xScaler / 2, (int) (j * yScaler) + (int) yScaler / 2);
+
+                    }
+                    else if (((Miner) sprite).getDir() == 2) {
+                        g2.rotate(Math.toRadians(-90), (int) ((i - pan) * xScaler) + (int) xScaler / 2, (int) (j * yScaler) + (int) yScaler / 2);
+
+                    }
+                    else if (((Miner) sprite).getDir() == 3) {
+                        g2.rotate(Math.toRadians(-180), (int) ((i - pan) * xScaler) + (int) xScaler / 2, (int) (j * yScaler) + (int) yScaler / 2);
+                    }
+                   //g2.rotate(Math.toRadians(((Miner) sprite).getDir() * 90 + 90), (int) ((i - pan) * xScaler) + xScaler / 2, (int) (j * xScaler) + yScaler / 2);
                     g2.drawImage(Display.getImage(sprite.getImage()),
                             (int) ((i - pan) * xScaler),
                             (int) (j * yScaler),
@@ -675,7 +689,7 @@ public class World {
             textY += 18;
             //TODO: add in display diamond and coal
             for (Miner m : miners) {
-                String toDisplay = (m).getName().substring(1) + ": " + scores.get(m.getName()) + " diamonds, " + (m).getCoal() + " coal, " + (m).getEmerald() + " emerald";
+                String toDisplay = (m).getName().substring(1) + ": " + scores.get(m.getName()) + " diamonds, " + (m).getCoal() + " coal, " + (m).getEmerald() + " emerald" + " dir: " + ((Miner)m).getDir();
                 double textWidth = fontMetrics.getStringBounds(toDisplay, g).getWidth();
                 double textHeight = fontMetrics.getStringBounds(toDisplay, g).getHeight();
                 int x = (int) ((m.getGridX() - pan) * xScaler);

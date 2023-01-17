@@ -1,8 +1,7 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class TestBot implements Bot {
+public class TestBotR implements Bot {
 
     private static final String[] ADJECTIVES = {"Awesome", "Brave", "Clever", "Daring", "Elegant", "Fierce", "Gleaming", "Intelligent", "Jaunty", "Keen", "Lively"};
     private static final String[] NOUNS = {"Android", "Bot", "Cyborg", "Droid", "Gynoid", "Machine", "Robot", "Synthetic", "Transformer", "Unit", "Warrior"};
@@ -30,7 +29,7 @@ public class TestBot implements Bot {
 
     @Override
     public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, HashMap<Location,String> vision) {
-        return "TURN_LEFT";
+        return "TURN_RIGHT";
 
 //        if(objectsDetected[4].equals("EMPTY"))
 //            return "MOVE";
@@ -43,7 +42,7 @@ public class TestBot implements Bot {
         Random random = new Random();
         int adjIndex = random.nextInt(ADJECTIVES.length);
         int nounIndex = random.nextInt(NOUNS.length);
-        return ADJECTIVES[adjIndex] + " " + NOUNS[nounIndex];
+        return "right";
 
     }
 }

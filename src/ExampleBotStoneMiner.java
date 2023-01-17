@@ -1,6 +1,8 @@
 import java.util.HashMap;
 
 public class ExampleBotStoneMiner implements Bot{
+
+    Integer moveDir=15;
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers){
 
     }
@@ -12,10 +14,27 @@ public class ExampleBotStoneMiner implements Bot{
     5  6  7]
      */
     public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, HashMap<Location,String> vision){
-        if(objectsDetected[4].equals("EMPTY"))
+        int currentDirection = 1;
+        if(moveDir>0)
+        {
+            moveDir--;
             return "MOVE";
+        }
+        else if(moveDir==0)
+        {
+            moveDir--;
+            return "TURN_LEFT";
+        }
+
+        if(objectsDetected[2].equals("EMPTY"))
+        {
+            return "MOVE";
+        }
         else
+        {
+            System.out.println("this is called");
             return "MINE";
+        }
     }
 
     public String getName(){

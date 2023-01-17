@@ -22,7 +22,7 @@ public class ComplexBot implements Bot {
     //All bots start facing to the right
     @Override
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers) {
-
+        System.out.println("this happenes");
     }
 
 
@@ -60,7 +60,7 @@ public class ComplexBot implements Bot {
         {
             Set<Location> keys = vision.keySet();
             for (Location key : keys) {
-                System.out.println("thevision at: " + vision.get(key).toString());
+                //System.out.println("thevision at: " + vision.get(key).toString());
             }
         }
         if(numEmerald > 3){

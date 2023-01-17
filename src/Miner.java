@@ -76,20 +76,23 @@ public class Miner extends Sprite {
 
     public String turn(int gridX, int gridY, String[] objectsDetected)
     {
+        System.out.println(dir);
         return bot.newTurn(new Location(gridX,gridY),objectsDetected, coal, emerald, vision);
+
     }
 
     public void turnRight()
     {
-        dir++;
-        if(dir==4)
-            dir=0;
-    }
-    public void turnLeft()
-    {
         dir--;
         if(dir==-1)
             dir=3;
+    }
+    public void turnLeft()
+    {
+        dir++;
+        if(dir==4)
+            dir=0;
+
     }
 
     @Override
