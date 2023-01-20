@@ -397,19 +397,16 @@ public class World {
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 3){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                                         ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                 }
                             }
@@ -423,19 +420,16 @@ public class World {
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 3){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                                         ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                 }
                             }
@@ -449,18 +443,15 @@ public class World {
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
                                     }
                                     if (mine == 3){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                                         ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                 }
                             }
@@ -475,19 +466,16 @@ public class World {
                                     if (mine == 1) {
                                         int diamondRNG = ThreadLocalRandom.current().nextInt(1, 2 + 1);
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()) + diamondRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 2){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int coalRNG = ThreadLocalRandom.current().nextInt(3, 5 + 1);
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal() + coalRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                     if (mine == 3){
                                         scores.put(((Miner) sprites[i][j]).getName(), scores.get(((Miner) sprites[i][j]).getName()));
                                         int emeraldRNG = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                                         ((Miner) sprites[i][j]).setEmerald(((Miner) sprites[i][j]).getEmerald() + emeraldRNG);
-                                        ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
                                     }
                                 }
                             }
