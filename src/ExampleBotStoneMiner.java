@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 public class ExampleBotStoneMiner implements Bot{
 
-    Integer moveDir=15;
+    Integer moveDir=20;
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers){
         System.out.println("New Game");
     }
@@ -14,6 +14,7 @@ public class ExampleBotStoneMiner implements Bot{
     5  6  7]
      */
     public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, HashMap<Location,String> vision){
+        /*
         int currentDirection = 1;
         if(moveDir>0)
         {
@@ -35,6 +36,21 @@ public class ExampleBotStoneMiner implements Bot{
             //System.out.println("this is called");
             return "MINE";
         }
+         */
+        moveDir--;
+        if(moveDir!=0)
+        {
+            if(moveDir==10)
+            {
+                return "TURN_LEFT";
+            }
+            else if(moveDir>9)
+            {
+                return "MINE";
+            }
+        }
+            return "MOVE";
+
     }
 
     public String getName(){

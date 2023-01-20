@@ -318,13 +318,13 @@ public class World {
                                     if (dir == 0 && i != gridWidth - 1 && (sprites[i + 1][j] instanceof Stone || sprites[i + 1][j] instanceof Diamond || sprites[i + 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)) {
                                         actions[i][j] = "r_MINE";
                                         locsBeingMined.add(new Location(i + 1, j));
-                                    } else if (dir == 1 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                    } else if (dir == 1 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i][j -1] instanceof Coal || sprites[i][j -1] instanceof Emerald))) {
                                         actions[i][j] = "u_MINE";
                                         locsBeingMined.add(new Location(i, j - 1));
-                                    } else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                    } else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i - 1][j] instanceof Coal || sprites[i - 1][j] instanceof Emerald))) {
                                         actions[i][j] = "l_MINE";
                                         locsBeingMined.add(new Location(i - 1, j));
-                                    } else if (dir == 3 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                    } else if (dir == 3 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i][j + 1] instanceof Coal || sprites[i][j + 1] instanceof Emerald))) {
                                         actions[i][j] = "d_MINE";
                                         locsBeingMined.add(new Location(i, j + 1));
                                     }
@@ -524,12 +524,13 @@ public class World {
     }
 
     public void mouseClicked(int x, int y) {
+        /*
         int viewWidth = (gridHeight / 8) * 15;
         double xScaler = ((double) width) / viewWidth;
 
         sprites[(int) (x / xScaler + pan)][(int) (y / yScaler)] = new Coal((x / xScaler + pan) * ((double) width / gridWidth), (y / yScaler) * ((double) height / (gridHeight + 2)),
                 width / gridWidth, height / (gridHeight + 2));
-
+    */
     }
 
 

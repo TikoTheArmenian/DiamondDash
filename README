@@ -3,6 +3,9 @@
 
 ## Welcome to Diamond Dash!
 
+##Update 1/19
+ - A bug involving not being able to mine emerald or coal was fixed. There is a bug where robots will occasionally be able to mine a single block even after they have zero coal. A fix is being made.
+
 ##Update 1/15
  - A bug was pointed out where bots do not loose coal from mining stone, coal, or emeralds. This has been fixed. Please note that bots do not loose coal every turn in which you mine and only loose coal the moment a block is finished being mined.
 
