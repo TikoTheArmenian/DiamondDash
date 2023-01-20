@@ -524,12 +524,13 @@ public class World {
     }
 
     public void mouseClicked(int x, int y) {
+        /*
         int viewWidth = (gridHeight / 8) * 15;
         double xScaler = ((double) width) / viewWidth;
 
         sprites[(int) (x / xScaler + pan)][(int) (y / yScaler)] = new Coal((x / xScaler + pan) * ((double) width / gridWidth), (y / yScaler) * ((double) height / (gridHeight + 2)),
                 width / gridWidth, height / (gridHeight + 2));
-
+    */
     }
 
 
