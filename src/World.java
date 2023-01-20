@@ -303,59 +303,58 @@ public class World {
                             String action = ((Miner) sprite).turn(i, j, getObjectsArround(i, j));
                             int dir = ((Miner) sprite).getDir();
                             //add a new action that is not mine, maybe just make it so that you can use coal to instant mine?
-                            if (action.equals("MOVE")) {
-                                if (dir == 0 && i != gridWidth - 1 && sprites[i + 1][j] == null)
-                                    actions[i][j] = "r";
-                                else if ((dir == 1 && j != 0 && sprites[i][j - 1] == null))
-                                    actions[i][j] = "u";
-                                else if ((dir == 2 && i != 0 && sprites[i - 1][j] == null))
-                                    actions[i][j] = "l";
-                                else if ((dir == 3 && j != gridHeight - 1 && sprites[i][j + 1] == null))
-                                    actions[i][j] = "d";
-                            } else if (action.equals("MINE")) {
-                                if (dir == 0 && i != gridWidth - 1 && (sprites[i + 1][j] instanceof Stone || sprites[i + 1][j] instanceof Diamond || sprites[i + 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))
-                                {
-                                    actions[i][j] = "r_MINE";
-                                    locsBeingMined.add(new Location(i + 1,j));
-                                }
-                                else if (dir == 1 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
-                                    actions[i][j] = "u_MINE";
-                                    locsBeingMined.add(new Location(i,j-1));
-                                }
-                                else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
-                                    actions[i][j] = "l_MINE";
-                                    locsBeingMined.add(new Location(i - 1,j));
-                                }
-                                else if (dir == 3 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
-                                    actions[i][j] = "d_MINE";
-                                    locsBeingMined.add(new Location(i,j+1));
-                                }
-                            }
-                            else if (action.equals("VISION")) {
-                                if(((Miner) sprite).getEmerald()>3) {
-                                    //make this a hash map
-                                    HashMap<Location, String> vision = new HashMap<>();
-                                    String[][] visions = new String[gridWidth][gridHeight];
-                                    int l=((Miner)sprite).getGridX()-50;
-                                    if(l<0)
-                                        l=0;
-                                    int k=((Miner)sprite).getGridX()+50;
-                                    if(k>gridWidth)
-                                        k=gridWidth;
-                                    for (int g = l; g < k; g++) {
-                                        for (int h = 0; h < gridHeight; h++) {
-                                            if(sprites[g][h]==null)
-                                                vision.put(new Location(g,h),"EMPTY");
-                                            else
-                                                vision.put(new Location(g,h), sprites[g][h].toString());
-                                        }
+                            switch (action) {
+                                case "MOVE":
+                                    if (dir == 0 && i != gridWidth - 1 && sprites[i + 1][j] == null)
+                                        actions[i][j] = "r";
+                                    else if ((dir == 1 && j != 0 && sprites[i][j - 1] == null))
+                                        actions[i][j] = "u";
+                                    else if ((dir == 2 && i != 0 && sprites[i - 1][j] == null))
+                                        actions[i][j] = "l";
+                                    else if ((dir == 3 && j != gridHeight - 1 && sprites[i][j + 1] == null))
+                                        actions[i][j] = "d";
+                                    break;
+                                case "MINE":
+                                    if (dir == 0 && i != gridWidth - 1 && (sprites[i + 1][j] instanceof Stone || sprites[i + 1][j] instanceof Diamond || sprites[i + 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)) {
+                                        actions[i][j] = "r_MINE";
+                                        locsBeingMined.add(new Location(i + 1, j));
+                                    } else if (dir == 1 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                        actions[i][j] = "u_MINE";
+                                        locsBeingMined.add(new Location(i, j - 1));
+                                    } else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                        actions[i][j] = "l_MINE";
+                                        locsBeingMined.add(new Location(i - 1, j));
+                                    } else if (dir == 3 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
+                                        actions[i][j] = "d_MINE";
+                                        locsBeingMined.add(new Location(i, j + 1));
                                     }
-                                    ((Miner) sprite).vision(vision);
-                                    ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 3);
-                                }
-                            }
-                            else {
-                                actions[i][j] = action;
+                                    break;
+                                case "VISION":
+                                    if (((Miner) sprite).getEmerald() > 3) {
+                                        //make this a hash map
+                                        HashMap<Location, String> vision = new HashMap<>();
+                                        String[][] visions = new String[gridWidth][gridHeight];
+                                        int l = ((Miner) sprite).getGridX() - 50;
+                                        if (l < 0)
+                                            l = 0;
+                                        int k = ((Miner) sprite).getGridX() + 50;
+                                        if (k > gridWidth)
+                                            k = gridWidth;
+                                        for (int g = l; g < k; g++) {
+                                            for (int h = 0; h < gridHeight; h++) {
+                                                if (sprites[g][h] == null)
+                                                    vision.put(new Location(g, h), "EMPTY");
+                                                else
+                                                    vision.put(new Location(g, h), sprites[g][h].toString());
+                                            }
+                                        }
+                                        ((Miner) sprite).vision(vision);
+                                        ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 3);
+                                    }
+                                    break;
+                                default:
+                                    actions[i][j] = action;
+                                    break;
                             }
                         } else
                             sprite.step(this);
@@ -468,6 +467,7 @@ public class World {
                             case "d_MINE" -> {
                                 if (sprites[i][j + 1] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i][j + 1].mine();
+                                    System.out.println("d_MINE on " + sprites[i][j + 1].getImage() + " mine: " + mine);
                                     if (mine != 0) {
                                         sprites[i][j + 1] = null;
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
@@ -524,6 +524,12 @@ public class World {
     }
 
     public void mouseClicked(int x, int y) {
+        int viewWidth = (gridHeight / 8) * 15;
+        double xScaler = ((double) width) / viewWidth;
+
+        sprites[(int) (x / xScaler + pan)][(int) (y / yScaler)] = new Coal((x / xScaler + pan) * ((double) width / gridWidth), (y / yScaler) * ((double) height / (gridHeight + 2)),
+                width / gridWidth, height / (gridHeight + 2));
+
     }
 
 
