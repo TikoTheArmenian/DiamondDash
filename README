@@ -77,10 +77,10 @@ The only classes you will need to access for this bot competition are Play and a
 
 
  - **Diamonds**
-	 - Diamonds are used to increase your score. They take three turns to mine. They provide no powerups and are the way in which we will indicate a bot's rank. They are the most important block. Diamonds are rare.
+	 - Diamonds are used to increase your score. They take three turns to mine. They provide no powerups and are the way in which we will indicate a bot's rank. They are the most important block. Diamonds are rare. You get one diamond upon mining.
  - **Coal**
-	 - Coal takes three turns to mine. You loose one coal on completion of mining any block. You start with ten coal, and coal is fairly common. Without any coal, you can't continue to mine blocks.
+	 - Coal takes three turns to mine. You loose one coal on completion of mining any block. You start with ten coal, and coal is fairly common. Without any coal, you can't continue to mine blocks. For every coal mined you get between 3-5 coal.
  - **Emeralds**
-	 - Emeralds takes six turns to mine. Once you have three emeralds you can use the vision powerup, which reveals all blocks within a radius of 50 blocks of you. This is the only use for emeralds, and they are rare.
+	 - Emeralds takes six turns to mine. Once you have three emeralds you can use the vision powerup, which reveals all blocks within a radius of 50 blocks of you. This is the only use for emeralds, and they are rare. For every emerald mined you get between 1-3 emeralds.
  - **Stone**
 	 - Stone takes three turns to mine. It provides no value to you.
