@@ -12,6 +12,7 @@ public class TestBot implements Bot {
     @Override
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers) {
 
+
     }
 
 
@@ -30,11 +31,10 @@ public class TestBot implements Bot {
 
     @Override
     public String newTurn(Location currentLocation, String[] objectsDetected, int numCoal, int numEmerald, HashMap<Location,String> vision) {
-        return "TURN_LEFT";
 
-//        if(objectsDetected[4].equals("EMPTY"))
-//            return "MOVE";
-//        return "MINE";
+        if(objectsDetected[4].equals("EMPTY"))
+            return "MOVE";
+        return "MINE";
     }
 
     @Override

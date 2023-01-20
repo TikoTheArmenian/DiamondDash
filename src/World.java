@@ -148,6 +148,7 @@ public class World {
                     scores.put(scoreKey.toString(), 0);
                     ((Miner) sprites[i][j]).setCoal(10);
                     bots.remove(0);
+                    ((Miner) sprites[i][j]).newGame(new Location(i,j),gridWidth,gridHeight,bots.size());
                 }
                 iterator++;
             }
@@ -317,15 +318,15 @@ public class World {
                                     actions[i][j] = "r_MINE";
                                     locsBeingMined.add(new Location(i + 1,j));
                                 }
-                                else if (dir == 1 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i][j -1] instanceof Coal || sprites[i][j -1] instanceof Emerald))) {
+                                else if (dir == 1 && j != 0 && ((sprites[i][j - 1] instanceof Stone || sprites[i][j - 1] instanceof Diamond || sprites[i][j - 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "u_MINE";
                                     locsBeingMined.add(new Location(i,j-1));
                                 }
-                                else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i - 1][j] instanceof Coal || sprites[i - 1][j] instanceof Emerald))) {
+                                else if (dir == 2 && i != 0 && ((sprites[i - 1][j] instanceof Stone || sprites[i - 1][j] instanceof Diamond || sprites[i - 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "l_MINE";
                                     locsBeingMined.add(new Location(i - 1,j));
                                 }
-                                else if (dir == 3 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i][j + 1] instanceof Coal || sprites[i][j + 1] instanceof Emerald))) {
+                                else if (dir == 3 && (j != gridHeight - 1 && (sprites[i][j + 1] instanceof Stone || sprites[i][j + 1] instanceof Diamond || sprites[i][j + 1] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald))) {
                                     actions[i][j] = "d_MINE";
                                     locsBeingMined.add(new Location(i,j+1));
                                 }
@@ -668,7 +669,6 @@ public class World {
                     }
                 }
             }
-        //System.out.println(maths.toString());
         drawScores(g, xScaler, miners, longestText, fontMetrics, maths);
 
 
