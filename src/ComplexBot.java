@@ -22,7 +22,7 @@ public class ComplexBot implements Bot {
     //All bots start facing to the right
     @Override
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers) {
-        System.out.println("this happenes");
+        System.out.println("NEW GAME");
     }
 
 

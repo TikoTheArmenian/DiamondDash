@@ -4,7 +4,7 @@ public class ExampleBotStoneMiner implements Bot{
 
     Integer moveDir=15;
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers){
-
+        System.out.println("New Game");
     }
     /*
     objectsDetected
@@ -32,7 +32,7 @@ public class ExampleBotStoneMiner implements Bot{
         }
         else
         {
-            System.out.println("this is called");
+            //System.out.println("this is called");
             return "MINE";
         }
     }
