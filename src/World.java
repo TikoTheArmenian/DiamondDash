@@ -1,14 +1,8 @@
-import org.w3c.dom.ls.LSOutput;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
-import java.util.Collection;
 
 public class World {
 
@@ -257,23 +251,46 @@ public class World {
 
     }
 
-    public String[][] fixActions(String[][] actions, ArrayList<Location> locs)
+    public String[][] fixMovingActions(String[][] actions, ArrayList<Location> locs)
+    {
+        for(Location loc : locs) {
+            if (sprites[loc.getX()][loc.getY()] == null) {
+                ArrayList<Location> spotsMoving = new ArrayList<>();
+                if (loc.getX() != 0 && actions[loc.getX() - 1][loc.getY()].equals("r"))
+                    spotsMoving.add(new Location(loc.getX() - 1, loc.getY()));
+                if (loc.getY() != gridHeight - 1 && actions[loc.getX()][loc.getY() + 1].equals("u"))
+                    spotsMoving.add(new Location(loc.getX(), loc.getY() + 1));
+                if (loc.getX() != gridWidth - 1 && actions[loc.getX() + 1][loc.getY()].equals("l"))
+                    spotsMoving.add(new Location(loc.getX() + 1, loc.getY()));
+                if (loc.getY() != 0 && actions[loc.getX()][loc.getY() - 1].equals("d"))
+                    spotsMoving.add(new Location(loc.getX(), loc.getY() - 1));
+                int mover = (int) (spotsMoving.size() * Math.random());
+                for (int i = 0; i < spotsMoving.size(); i++)
+                    if (i != mover)
+                        actions[spotsMoving.get(i).getX()][spotsMoving.get(i).getY()] = "";
+            }
+        }
+        return actions;
+    }
+
+    public String[][] fixMiningActions(String[][] actions, ArrayList<Location> locs)
     {
         for(Location loc : locs)
         {
-            ArrayList<Location> spotsMining = new ArrayList<>();
-            if(loc.getX()!=0 && actions[loc.getX()-1][loc.getY()].equals("r_MINE"))
-                spotsMining.add(loc);
-            if(loc.getY() != gridHeight-1 && actions[loc.getX()][loc.getY()+1].equals("u_MINE"))
-                spotsMining.add(loc);
-            if(loc.getX() != gridWidth-1 && actions[loc.getX()+1][loc.getY()].equals("l_MINE"))
-                spotsMining.add(loc);
-            if(loc.getY()!=0 && actions[loc.getX()][loc.getY()-1].equals("d_MINE"))
-                spotsMining.add(loc);
-            int miner = (int)(spotsMining.size()*Math.random());
-            for(int i = 0; i < spotsMining.size(); i++)
-                if(i!=miner)
-                    actions[spotsMining.get(i).getX()][spotsMining.get(i).getY()] = "";
+
+                ArrayList<Location> spotsMining = new ArrayList<>();
+                if (loc.getX() != 0 && actions[loc.getX() - 1][loc.getY()].equals("r_MINE"))
+                    spotsMining.add(loc);
+                if (loc.getY() != gridHeight - 1 && actions[loc.getX()][loc.getY() + 1].equals("u_MINE"))
+                    spotsMining.add(loc);
+                if (loc.getX() != gridWidth - 1 && actions[loc.getX() + 1][loc.getY()].equals("l_MINE"))
+                    spotsMining.add(loc);
+                if (loc.getY() != 0 && actions[loc.getX()][loc.getY() - 1].equals("d_MINE"))
+                    spotsMining.add(loc);
+                int miner = (int) (spotsMining.size() * Math.random());
+                for (int i = 0; i < spotsMining.size(); i++)
+                    if (i != miner)
+                        actions[spotsMining.get(i).getX()][spotsMining.get(i).getY()] = "";
         }
         return actions;
     }
@@ -294,6 +311,7 @@ public class World {
         if (turnsPlayed < turn && doTurn) {
             String[][] actions = new String[gridWidth][gridHeight];
             ArrayList<Location> locsBeingMined= new ArrayList<>();
+            ArrayList<Location> locsBeingMovedTo= new ArrayList<>();
             for (int i = 0; i < gridWidth; i++)
                 for (int j = 0; j < gridHeight; j++) {
                     actions[i][j] = "";
@@ -305,14 +323,23 @@ public class World {
                             //add a new action that is not mine, maybe just make it so that you can use coal to instant mine?
                             switch (action) {
                                 case "MOVE":
-                                    if (dir == 0 && i != gridWidth - 1 && sprites[i + 1][j] == null)
+                                    if (dir == 0 && i != gridWidth - 1 && sprites[i + 1][j] == null) {
                                         actions[i][j] = "r";
-                                    else if ((dir == 1 && j != 0 && sprites[i][j - 1] == null))
+                                        locsBeingMovedTo.add(new Location(i+1,j));
+                                    }
+                                    else if ((dir == 1 && j != 0 && sprites[i][j - 1] == null)) {
                                         actions[i][j] = "u";
-                                    else if ((dir == 2 && i != 0 && sprites[i - 1][j] == null))
+                                        locsBeingMovedTo.add(new Location(i,j-1));
+                                    }
+                                    else if ((dir == 2 && i != 0 && sprites[i - 1][j] == null)) {
                                         actions[i][j] = "l";
-                                    else if ((dir == 3 && j != gridHeight - 1 && sprites[i][j + 1] == null))
+                                        locsBeingMovedTo.add(new Location(i-1,j));
+                                    }
+                                    else if ((dir == 3 && j != gridHeight - 1 && sprites[i][j + 1] == null)) {
                                         actions[i][j] = "d";
+                                        locsBeingMovedTo.add(new Location(i,j+1));
+                                    }
+
                                     break;
                                 case "MINE":
                                     if (dir == 0 && i != gridWidth - 1 && (sprites[i + 1][j] instanceof Stone || sprites[i + 1][j] instanceof Diamond || sprites[i + 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)) {
@@ -360,8 +387,8 @@ public class World {
                             sprite.step(this);
                     }
                 }
-            actions = fixActions(actions,locsBeingMined);
-
+            actions = fixMiningActions(actions,locsBeingMined);
+            actions = fixMovingActions(actions,locsBeingMovedTo);
 
             turnsPlayed++;
             for (int i = 0; i < gridWidth; i++)
