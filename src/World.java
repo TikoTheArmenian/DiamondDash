@@ -357,7 +357,9 @@ public class World {
                                     }
                                     break;
                                 case "VISION":
-                                    if (((Miner) sprite).getEmerald() > 3) {
+                                    if (((Miner) sprite).getEmerald() >= 3) {
+                                        //System.out.println("this occurs");
+                                        //so the problem is below this:
                                         //make this a hash map
                                         HashMap<Location, String> vision = new HashMap<>();
                                         String[][] visions = new String[gridWidth][gridHeight];
@@ -375,6 +377,26 @@ public class World {
                                                     vision.put(new Location(g, h), sprites[g][h].toString());
                                             }
                                         }
+
+                                        //you get all objects in a 50 block to the left and 50 blocks to the right of the miner
+
+
+                                        //see if the map array is actually null
+                                        //loop through the visions array and print it out
+                                       /*
+                                        System.out.println("see if this is the problem:");
+                                        for (Location loc: vision.keySet()) {
+                                            String obj = loc.toString();
+                                            String value = vision.get(loc).toString();
+                                            System.out.println(obj + " " + value);
+                                        }
+
+                                        */
+
+                                        //BEFORE PUSHING UPDATE README WITH IT
+
+
+
                                         ((Miner) sprite).vision(vision);
                                         ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 3);
                                     }
@@ -485,7 +507,7 @@ public class World {
                             case "d_MINE" -> {
                                 if (sprites[i][j + 1] != null && ((Miner) sprites[i][j]).getCoal() > 0) {
                                     int mine = sprites[i][j + 1].mine();
-                                    System.out.println("d_MINE on " + sprites[i][j + 1].getImage() + " mine: " + mine);
+                                    //System.out.println("d_MINE on " + sprites[i][j + 1].getImage() + " mine: " + mine);
                                     if (mine != 0) {
                                         sprites[i][j + 1] = null;
                                         ((Miner) sprites[i][j]).setCoal(((Miner) sprites[i][j]).getCoal()-1);
@@ -712,7 +734,8 @@ public class World {
             textY += 18;
             //TODO: add in display diamond and coal
             for (Miner m : miners) {
-                String toDisplay = (m).getName().substring(1) + ": " + scores.get(m.getName()) + " diamonds, " + (m).getCoal() + " coal, " + (m).getEmerald() + " emerald" + " dir: " + ((Miner)m).getDir();
+                String toDisplay = (m).getName().substring(1) + ": " + scores.get(m.getName()) + " diamond, " + (m).getCoal() + " coal, " + (m).getEmerald() + " emerald";
+                // + " dir: " + ((Miner)m).getDir();
                 double textWidth = fontMetrics.getStringBounds(toDisplay, g).getWidth();
                 double textHeight = fontMetrics.getStringBounds(toDisplay, g).getHeight();
                 int x = (int) ((m.getGridX() - pan) * xScaler);

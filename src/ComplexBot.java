@@ -22,7 +22,7 @@ public class ComplexBot implements Bot {
     //All bots start facing to the right
     @Override
     public void newGame(Location currentLocation, int mapWidth, int mapHeight, int numPlayers) {
-        System.out.println("NEW GAME");
+        //System.out.println("NEW GAME");
     }
 
 
@@ -56,16 +56,32 @@ public class ComplexBot implements Bot {
         String moveOrMine;
         int coal = numCoal;
         boolean justVisioned=false;
-        if(justVisioned)
+        if(vision!=null)
         {
+            /*
+            System.out.println("problemcheck number 2: ");
+            System.out.println();
+            for (Location loc: vision.keySet()) {
+                String obj = loc.toString();
+                String value = vision.get(loc).toString();
+                System.out.println(obj + " " + value);
+            }
+
+            throw new RuntimeException("Vision is not null");
+
+             */
+            /*
             Set<Location> keys = vision.keySet();
             for (Location key : keys) {
+
                 //System.out.println("thevision at: " + vision.get(key).toString());
             }
+            */
         }
-        if(numEmerald > 3){
+        if(numEmerald >= 3){
             justVisioned=true;
             return "VISION";
+
         }
         if(facing == 1)
             if(objectsDetected[4].equals("EMPTY"))
@@ -100,19 +116,19 @@ public class ComplexBot implements Bot {
             else
                 moveOrMine="MINE";
         //TODO: PROBLEM OCCURS BECAUSE OF THIS WITH OBJECTS DETECTED EMERALD
-        if (objectsDetected[1].equals("DIAMOND") || objectsDetected[1].equals("COAL"))
+        if (objectsDetected[1].equals("DIAMOND") || objectsDetected[1].equals("EMERALD"))
             return doUp(moveOrMine);
-        if (objectsDetected[4].equals("DIAMOND") || objectsDetected[4].equals("COAL"))
+        if (objectsDetected[4].equals("DIAMOND") || objectsDetected[4].equals("EMERALD"))
             return doRight(moveOrMine);
-        if (objectsDetected[6].equals("DIAMOND") || objectsDetected[6].equals("COAL"))
+        if (objectsDetected[6].equals("DIAMOND") || objectsDetected[6].equals("EMERALD"))
             return doDown(moveOrMine);
-        if (objectsDetected[3].equals("DIAMOND")  || objectsDetected[3].equals("COAL"))
+        if (objectsDetected[3].equals("DIAMOND")  || objectsDetected[3].equals("EMERALD"))
             return doLeft(moveOrMine);
-        if (objectsDetected[0].equals("DIAMOND")  || objectsDetected[0].equals("COAL"))
+        if (objectsDetected[0].equals("DIAMOND")  || objectsDetected[0].equals("EMERALD"))
             return doUp(moveOrMine);
-        if (objectsDetected[2].equals("DIAMOND")  || objectsDetected[2].equals("COAL"))
+        if (objectsDetected[2].equals("DIAMOND")  || objectsDetected[2].equals("EMERALD"))
             return doRight(moveOrMine);
-        if (objectsDetected[5].equals("DIAMOND")  || objectsDetected[5].equals("COAL"))
+        if (objectsDetected[5].equals("DIAMOND")  || objectsDetected[5].equals("EMERALD"))
             return doDown(moveOrMine);
         if (objectsDetected[7].equals("DIAMOND")  || objectsDetected[7].equals("COAL"))
             return doRight(moveOrMine);
