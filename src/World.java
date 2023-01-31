@@ -323,6 +323,7 @@ public class World {
                             //add a new action that is not mine, maybe just make it so that you can use coal to instant mine?
                             switch (action) {
                                 case "MOVE":
+                                    ((Miner) sprite).vision(null);
                                     if (dir == 0 && i != gridWidth - 1 && sprites[i + 1][j] == null) {
                                         actions[i][j] = "r";
                                         locsBeingMovedTo.add(new Location(i+1,j));
@@ -342,6 +343,7 @@ public class World {
 
                                     break;
                                 case "MINE":
+                                    ((Miner) sprite).vision(null);
                                     if (dir == 0 && i != gridWidth - 1 && (sprites[i + 1][j] instanceof Stone || sprites[i + 1][j] instanceof Diamond || sprites[i + 1][j] instanceof Bomb || sprites[i + 1][j] instanceof Coal || sprites[i + 1][j] instanceof Emerald)) {
                                         actions[i][j] = "r_MINE";
                                         locsBeingMined.add(new Location(i + 1, j));
@@ -358,11 +360,8 @@ public class World {
                                     break;
                                 case "VISION":
                                     if (((Miner) sprite).getEmerald() >= 3) {
-                                        //System.out.println("this occurs");
-                                        //so the problem is below this:
-                                        //make this a hash map
+                                        //System.out.println("new vision");
                                         HashMap<Location, String> vision = new HashMap<>();
-                                        String[][] visions = new String[gridWidth][gridHeight];
                                         int l = ((Miner) sprite).getGridX() - 50;
                                         if (l < 0)
                                             l = 0;
@@ -377,26 +376,15 @@ public class World {
                                                     vision.put(new Location(g, h), sprites[g][h].toString());
                                             }
                                         }
-
-                                        //you get all objects in a 50 block to the left and 50 blocks to the right of the miner
-
-
-                                        //see if the map array is actually null
-                                        //loop through the visions array and print it out
-                                       /*
+                                        /*
                                         System.out.println("see if this is the problem:");
                                         for (Location loc: vision.keySet()) {
                                             String obj = loc.toString();
                                             String value = vision.get(loc).toString();
                                             System.out.println(obj + " " + value);
                                         }
-
                                         */
-
                                         //BEFORE PUSHING UPDATE README WITH IT
-
-
-
                                         ((Miner) sprite).vision(vision);
                                         ((Miner) sprite).setEmerald(((Miner) sprite).getEmerald() - 3);
                                     }
@@ -407,6 +395,7 @@ public class World {
                             }
                         } else
                             sprite.step(this);
+
                     }
                 }
             actions = fixMiningActions(actions,locsBeingMined);

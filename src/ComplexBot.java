@@ -59,6 +59,13 @@ public class ComplexBot implements Bot {
         if(vision!=null)
         {
             /*
+            System.out.println("see if this is the problem:");
+            for (Location loc: vision.keySet()) {
+                String obj = loc.toString();
+                String value = vision.get(loc).toString();
+                System.out.println(obj + " " + value);
+            }
+            /*
             System.out.println("problemcheck number 2: ");
             System.out.println();
             for (Location loc: vision.keySet()) {

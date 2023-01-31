@@ -10,7 +10,7 @@ public class Play {
         bots.add(new ComplexBot());
         //bots.add(new ComplexBot());
         //bots.add(new ComplexBot());
-        Display display = new Display(200 , 32, bots,60); // height MUST be divisible by 8 and width must be greater than 1/5 of height
+        Display display = new Display(200 , 32, bots,20); // height MUST be divisible by 8 and width must be greater than 1/5 of height
         display.run();
     }
 }
